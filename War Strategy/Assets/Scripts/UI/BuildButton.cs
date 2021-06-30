@@ -6,11 +6,11 @@ public class BuildButton : MonoBehaviour
     {
         if (!CameraController.StaticCameraController.IsLock)
         {
-            CameraController.StaticCameraController.IsLock = false;
+            CameraController.StaticCameraController.IsLock = true;
         }
         else
         {
-            CameraController.StaticCameraController.IsLock = true;
+            CameraController.StaticCameraController.IsLock = false;
         }
     }
 }
