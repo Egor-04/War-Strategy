@@ -16,6 +16,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _minZ;
     [SerializeField] private float _maxZ;
 
+    [Header("Camera State")]
+    [SerializeField] private bool _isLock = false;
+        
     private Vector2 _startPosition;
     private float _targetPositionX;
     private float _targetPositionZ;
@@ -27,23 +30,26 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!_isLock)
         {
-            _startPosition = _camera.ScreenToViewportPoint(Input.mousePosition);
-            _targetPositionX = transform.position.x;
-            _targetPositionZ = transform.position.z;
-        }
-        
-        if (Input.GetMouseButton(0))
-        {
-            float positionX = _camera.ScreenToViewportPoint(Input.mousePosition).x - _startPosition.x;
-            float positionZ = _camera.ScreenToViewportPoint(Input.mousePosition).y - _startPosition.y;
-            _targetPositionX = Mathf.Clamp(transform.position.x - positionX * _sensitivity, _minX, _maxX);
-            _targetPositionZ = Mathf.Clamp(transform.position.z - positionZ * _sensitivity, _minZ, _maxZ);
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                _startPosition = _camera.ScreenToViewportPoint(Input.mousePosition);
+                _targetPositionX = transform.position.x;
+                _targetPositionZ = transform.position.z;
+            }
+            
+            if (Input.GetMouseButton(0))
+            {
+                float positionX = _camera.ScreenToViewportPoint(Input.mousePosition).x - _startPosition.x;
+                float positionZ = _camera.ScreenToViewportPoint(Input.mousePosition).y - _startPosition.y;
+                _targetPositionX = Mathf.Clamp(transform.position.x - positionX * _sensitivity, _minX, _maxX);
+                _targetPositionZ = Mathf.Clamp(transform.position.z - positionZ * _sensitivity, _minZ, _maxZ);
+            }
 
-        float clampPositionX = Mathf.Lerp(transform.position.x, _targetPositionX, _sensitivity * Time.deltaTime);
-        float clampPositionZ = Mathf.Lerp(transform.position.z, _targetPositionZ, _sensitivity * Time.deltaTime);
-        transform.position = new Vector3(clampPositionX, transform.position.y, clampPositionZ);
+            float clampPositionX = Mathf.Lerp(transform.position.x, _targetPositionX, _sensitivity * Time.deltaTime);
+            float clampPositionZ = Mathf.Lerp(transform.position.z, _targetPositionZ, _sensitivity * Time.deltaTime);
+            transform.position = new Vector3(clampPositionX, transform.position.y, clampPositionZ);
+        }
     }
 }
