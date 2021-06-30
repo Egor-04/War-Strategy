@@ -17,20 +17,23 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _maxZ;
 
     [Header("Camera State")]
-    [SerializeField] private bool _isLock = false;
+    [SerializeField] public bool IsLock = false;
         
+    public static CameraController StaticCameraController;
+    
     private Vector2 _startPosition;
     private float _targetPositionX;
     private float _targetPositionZ;
 
     private void Start()
     {
+        StaticCameraController = this;
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     private void Update()
     {
-        if (!_isLock)
+        if (!IsLock)
         {
             if (Input.GetMouseButtonDown(0))
             {
