@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
-  _sensitivity: 10
+  _sensitivity: 20
   _minX: -2470
   _maxX: 2470
   _minZ: -2549

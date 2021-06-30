@@ -42,6 +42,8 @@ public class CameraController : MonoBehaviour
             _targetPositionZ = Mathf.Clamp(transform.position.z - positionZ * _sensitivity, _minZ, _maxZ);
         }
 
-        transform.position = new Vector3(Mathf.Lerp(transform.position.x, _targetPositionX, _sensitivity * Time.deltaTime), transform.position.y, Mathf.Lerp(transform.position.z, _targetPositionZ, _sensitivity * Time.deltaTime));
+        float clampPositionX = Mathf.Lerp(transform.position.x, _targetPositionX, _sensitivity * Time.deltaTime);
+        float clampPositionZ = Mathf.Lerp(transform.position.z, _targetPositionZ, _sensitivity * Time.deltaTime);
+        transform.position = new Vector3(clampPositionX, transform.position.y, clampPositionZ);
     }
 }
