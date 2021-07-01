@@ -21,6 +21,24 @@ public class UnitSelect : MonoBehaviour
 
     private bool _noPlace;
 
+    public void GiveUnitTask(Transform movementTarget)
+    {
+        if (TeamGroupUnderControll == TeamGroupControll.Blue)
+        {
+            for (int i = 0; i < _selectedBlueUnits.Count; i++)
+            {
+                _selectedBlueUnits[i].UnitMovement.SetTarget(movementTarget);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _selectedRedUnits.Count; i++)
+            {
+                _selectedRedUnits[i].UnitMovement.SetTarget(movementTarget);
+            }
+        }
+    }
+
     private void ShowBlueUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);

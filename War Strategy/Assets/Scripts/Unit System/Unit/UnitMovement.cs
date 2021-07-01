@@ -14,18 +14,16 @@ public class UnitMovement : MonoBehaviour
     [Header("Movement Target")]
     [SerializeField] private Transform _movementTarget;
 
-    private Unit _unit;
-
-    private void Start()
-    {
-        _unit = GetComponent<Unit>();
-    }
-
     private void Update()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
         MoveToTarget();
+    }
+
+    public void SetTarget(Transform movementTarget)
+    {
+        _movementTarget = movementTarget;
     }
 
     private void MoveToTarget()
@@ -34,11 +32,16 @@ public class UnitMovement : MonoBehaviour
         {
             float currentTargetDistance = Vector3.SqrMagnitude(_movementTarget.position - transform.position);
 
-            if (currentTargetDistance > 0f)
+            if (currentTargetDistance >= 0f)
             {
                 transform.LookAt(_movementTarget);
                 _navMeshAgent.SetDestination(_movementTarget.position);
                 transform.eulerAngles = new Vector3( 0f, transform.eulerAngles.y, 0f);
+            }
+            else
+            {
+                _movementTarget = null;
+                return;
             }
         }
     }
