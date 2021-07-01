@@ -5,11 +5,11 @@ public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
 {
     private Unit _currentUnit;
 
-    private UnitController _unitController;
+    private UnitSelect _unitSelect;
 
     private void Start()
     {
-        _unitController = FindObjectOfType<UnitController>();
+        _unitSelect = FindObjectOfType<UnitSelect>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -24,14 +24,14 @@ public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
 
     public void Deselect()
     {
-        if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
+        if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
         {
-            _unitController.RemoveBlueUnit(_currentUnit);
+            _unitSelect.RemoveBlueUnit(_currentUnit);
             Destroy(gameObject);
         }
         else
         {
-            _unitController.RemoveRedUnit(_currentUnit);
+            _unitSelect.RemoveRedUnit(_currentUnit);
             Destroy(gameObject);
         }
     }

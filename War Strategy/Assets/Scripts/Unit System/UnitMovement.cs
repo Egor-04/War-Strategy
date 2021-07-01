@@ -42,9 +42,4 @@ public class UnitMovement : MonoBehaviour
             }
         }
     }
-
-    private void MoveToEnemy()
-    {
-
-    }
 }

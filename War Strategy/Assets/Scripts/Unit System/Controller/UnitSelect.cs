@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public enum TeamGroupControll {Blue, Red}
-public class UnitController : MonoBehaviour
+public class UnitSelect : MonoBehaviour
 {
     [Header("Team Under Controll")]
     public TeamGroupControll TeamGroupUnderControll;

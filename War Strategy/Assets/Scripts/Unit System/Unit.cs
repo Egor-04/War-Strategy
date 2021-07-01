@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour, IUnitSelected
     [Header("Unit Movement")]
     public UnitMovement UnitMovement;
 
-    private UnitController _unitController;
+    private UnitSelect _unitSelect;
     private int _minID = 1;
     private int _maxID = 1000;
 
@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour, IUnitSelected
     {
         UnitID = Random.Range(_minID, _maxID);
         UnitMovement = GetComponent<UnitMovement>();
-        _unitController = FindObjectOfType<UnitController>();
+        _unitSelect = FindObjectOfType<UnitSelect>();
     }
 
     private void OnMouseDown()
@@ -32,18 +32,18 @@ public class Unit : MonoBehaviour, IUnitSelected
     {
         if (!IsSelected)
         {
-            if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
+            if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
             {
                 if (CurrentTeamGroup == TeamGroup.Blue)
                 {
-                    _unitController.AddBlueUnit(GetComponent<Unit>());
+                    _unitSelect.AddBlueUnit(GetComponent<Unit>());
                 }
             }
             else
             {
                 if (CurrentTeamGroup == TeamGroup.Red)
                 {
-                    _unitController.AddRedUnit(GetComponent<Unit>());
+                    _unitSelect.AddRedUnit(GetComponent<Unit>());
                 }
             }
         }
