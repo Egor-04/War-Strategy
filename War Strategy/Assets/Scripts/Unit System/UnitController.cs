@@ -21,13 +21,14 @@ public class UnitController : MonoBehaviour
 
     private void ShowBlueUnitIcon(Unit selectedUnit)
     {
-        Instantiate(_cellPrefab, _selectedUnitsUI);
-        return;
+        GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
+        cell.transform.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
     }
 
     private void ShowRedUnitIcon(Unit selectedUnit)
     {
-        Instantiate(_cellPrefab, _selectedUnitsUI);
+        GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
+        cell.transform.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
         return;
     }
 
