@@ -6,13 +6,17 @@ public class Unit : MonoBehaviour, IUnitSelected
     [Header("Info")]
     public TeamGroup CurrentTeamGroup;
     public int UnitID;
+    public Sprite UnitIcon;
     public bool IsSelected;
 
     [Header("Unit Movement")]
-    public UnitController _unitController;
+    public UnitMovement UnitMovement;
+
+    private UnitController _unitController;
 
     private void Start()
     {
+        UnitMovement = GetComponent<UnitMovement>();
         _unitController = FindObjectOfType<UnitController>();
     }
 
@@ -25,8 +29,6 @@ public class Unit : MonoBehaviour, IUnitSelected
     {
         if (!IsSelected)
         {
-            IsSelected = true;
-            
             if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
             {
                 if (CurrentTeamGroup == TeamGroup.Blue)
@@ -44,20 +46,18 @@ public class Unit : MonoBehaviour, IUnitSelected
         }
         else
         {
-            IsSelected = false;
-
             if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
             {
                 if (CurrentTeamGroup == TeamGroup.Blue)
                 {
-                    _unitController.RemoveBlueUnit(UnitID);
+                    _unitController.RemoveBlueUnit(GetComponent<Unit>());
                 }
             }
             else
             {
                 if (CurrentTeamGroup == TeamGroup.Red)
                 {
-                    _unitController.RemoveRedUnit(UnitID);
+                    _unitController.RemoveRedUnit(GetComponent<Unit>());
                 }
             }
         }

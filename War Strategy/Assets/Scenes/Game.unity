@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3268905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -331,6 +331,108 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &532561130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532561131}
+  - component: {fileID: 532561133}
+  - component: {fileID: 532561132}
+  - component: {fileID: 532561134}
+  m_Layer: 5
+  m_Name: Selected Units Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &532561131
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532561130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 902201854}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 10.151123, y: 303.70923}
+  m_SizeDelta: {x: -767.0333, y: -607.4199}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &532561132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532561130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 10
+--- !u!222 &532561133
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532561130}
+  m_CullTransparentMesh: 1
+--- !u!114 &532561134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532561130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: -5.76
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!4 &601686255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2143142098770577219, guid: 5339895ec412fc14d8a731a1fc90be6c, type: 3}
@@ -655,8 +757,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cfac8b4a52f7647bbde3edd61aa5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedUnits: []
-  _unitMovement: {fileID: 0}
+  TeamGroupUnderControll: 0
+  _minSelectedUnits: 0
+  _maxSelectedUnits: 5
+  _selectedBlueUnits: []
+  _selectedRedUnits: []
+  _cellPrefab: {fileID: 6752836285144523323, guid: 3f92b5ff4b2901e49b3efa90e88a4678, type: 3}
+  _selectedUnitsUI: {fileID: 532561131}
 --- !u!1001 &882273749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -844,6 +951,7 @@ RectTransform:
   m_Children:
   - {fileID: 3268905}
   - {fileID: 1921543279}
+  - {fileID: 532561131}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1551,10 +1659,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1921543283}
         m_TargetAssemblyTypeName: BuildButton, Assembly-CSharp
         m_MethodName: BuildMode
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 3268904}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1898,6 +2006,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Unit (Worker)
       objectReference: {fileID: 0}
+    - target: {fileID: 6945956316627920368, guid: 12eb4d877d49f9d478f3ac4f6ce399e0, type: 3}
+      propertyPath: UnitIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: dfee512f44b97b846b738cbcfbfb2303, type: 3}
     - target: {fileID: 6945956316627920383, guid: 12eb4d877d49f9d478f3ac4f6ce399e0, type: 3}
       propertyPath: _speed
       value: 30
@@ -1911,6 +2023,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1322224962512176891, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: UnitIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 2071b77a40b617748bed5ad652d498e6, type: 3}
     - target: {fileID: 1322224962512176892, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
       propertyPath: _speed
       value: 30
@@ -2303,6 +2419,10 @@ PrefabInstance:
       propertyPath: UnitID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2144964987, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: UnitIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a58090329560554eb3e781398688190, type: 3}
     - target: {fileID: 2144964988, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
       propertyPath: _speed
       value: 30
@@ -2500,6 +2620,10 @@ PrefabInstance:
       propertyPath: UnitID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8081065422094788036, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: UnitIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 98579af57c4620e43ae62f06746e98f2, type: 3}
     - target: {fileID: 8081065422094788043, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: _speed
       value: 30
