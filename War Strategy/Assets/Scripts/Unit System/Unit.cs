@@ -13,9 +13,12 @@ public class Unit : MonoBehaviour, IUnitSelected
     public UnitMovement UnitMovement;
 
     private UnitController _unitController;
+    private int _minID = 1;
+    private int _maxID = 1000;
 
     private void Start()
     {
+        UnitID = Random.Range(_minID, _maxID);
         UnitMovement = GetComponent<UnitMovement>();
         _unitController = FindObjectOfType<UnitController>();
     }

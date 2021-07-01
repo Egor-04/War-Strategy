@@ -21,45 +21,14 @@ public class UnitController : MonoBehaviour
 
     private void ShowBlueUnitIcon(Unit selectedUnit)
     {
-        for (int i = 0; i < _selectedBlueUnits.Count; i++)
-        {
-            Transform cell = Instantiate(_cellPrefab, _selectedUnitsUI).transform;
-            cell.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
-            return;
-        }
+        Instantiate(_cellPrefab, _selectedUnitsUI);
+        return;
     }
 
     private void ShowRedUnitIcon(Unit selectedUnit)
     {
-        for (int i = 0; i < _selectedRedUnits.Count; i++)
-        {
-            Transform cell = Instantiate(_cellPrefab, _selectedUnitsUI).transform;
-            cell.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
-            return;
-        }
-    }
-
-    private void RemoveBlueUnitIcon(Unit deselected)
-    {
-        for (int i = 0; i < _selectedBlueUnits.Count; i++)
-        {
-            if (!deselected.IsSelected)
-            {
-                Destroy(_selectedUnitsUI.GetChild(i));
-                return;
-            }
-        }
-    }
-    private void RemoveRedUnitIcon(Unit deselected)
-    {
-        for (int i = 0; i < _selectedRedUnits.Count; i++)
-        {
-            if (!deselected.IsSelected)
-            {
-                Destroy(_selectedUnitsUI.GetChild(i));
-                return;
-            }
-        }
+        Instantiate(_cellPrefab, _selectedUnitsUI);
+        return;
     }
 
     public void AddBlueUnit(Unit selectedUnit)
@@ -113,7 +82,6 @@ public class UnitController : MonoBehaviour
             if (_selectedBlueUnits[i].UnitID == deselectedUnit.UnitID)
             {
                 _selectedBlueUnits[i].IsSelected = false;
-                RemoveBlueUnitIcon(_selectedBlueUnits[i]);
                 _selectedBlueUnits.RemoveAt(i);
                 return;
             }
@@ -127,7 +95,6 @@ public class UnitController : MonoBehaviour
             if (_selectedRedUnits[i].UnitID == deselectedUnit.UnitID)
             {
                 _selectedBlueUnits[i].IsSelected = false;
-                RemoveRedUnitIcon(_selectedBlueUnits[i]);
                 _selectedRedUnits.RemoveAt(i);
                 return;
             }
