@@ -4,7 +4,7 @@ public enum TeamGroup {Blue, Red}
 public class Unit : MonoBehaviour, IUnitSelected
 {
     [Header("Info")]
-    public TeamGroup CurrentTeamGroup; 
+    public TeamGroup CurrentTeamGroup;
     public int UnitID;
     public bool IsSelected;
 
@@ -26,13 +26,29 @@ public class Unit : MonoBehaviour, IUnitSelected
         if (!IsSelected)
         {
             IsSelected = true;
-            _unitController.AddUnit(GetComponent<Unit>());
+            
+            if (CurrentTeamGroup == TeamGroup.Blue)
+            {
+                _unitController.AddBlueUnit(GetComponent<Unit>());
+            }
+            else
+            {
+                _unitController.AddRedUnit(GetComponent<Unit>());
+            }
             
         }
         else
         {
             IsSelected = false;
-            _unitController.RemoveUnit(UnitID);
+
+            if (CurrentTeamGroup == TeamGroup.Blue)
+            {
+                _unitController.RemoveBlueUnit(UnitID);
+            }
+            else
+            {
+                _unitController.RemoveRedUnit(UnitID);
+            }
         }
     }
 }

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TeamGroupControll {Blue, Red}
 public class UnitController : MonoBehaviour
 {
-    [SerializeField] private List<Unit> _selectedUnits;
+    [Header("Team Under Controll")]
+    [SerializeField] private TeamGroupControll _teamGroupControll;
+
+    [SerializeField] private List<Unit> _selectedBlueUnits;
+    [SerializeField] private List<Unit> _selectedRedUnits;
 
     [SerializeField] private UnitMovement _unitMovement;
     
@@ -13,30 +18,59 @@ public class UnitController : MonoBehaviour
         
     }
 
-    public void AddUnit(Unit selectedUnit)
+    public void AddBlueUnit(Unit selectedUnit)
     {
-        _selectedUnits.Add(new Unit());
+        _selectedBlueUnits.Add(new Unit());
 
-        for (int i = 0; i < _selectedUnits.Count; i++)
+        for (int i = 0; i < _selectedBlueUnits.Count; i++)
         {
-            if (_selectedUnits[i] == null)
+            if (_selectedBlueUnits[i] == null)
             {
-                if (_selectedUnits[i].UnitID != selectedUnit.UnitID)
+                if (_selectedBlueUnits[i].UnitID != selectedUnit.UnitID)
                 {
-                    _selectedUnits[i] = selectedUnit;
+                    _selectedBlueUnits[i] = selectedUnit;
                     return;
                 }
             }
         }
     }
 
-    public void RemoveUnit(int unitID)
+    public void AddRedUnit(Unit selectedUnit)
     {
-        for (int i = 0; i < _selectedUnits.Count; i++)
+        _selectedRedUnits.Add(new Unit());
+
+        for (int i = 0; i < _selectedRedUnits.Count; i++)
         {
-            if (_selectedUnits[i].UnitID == unitID)
+            if (_selectedRedUnits[i] == null)
             {
-                _selectedUnits.RemoveAt(i);
+                if (_selectedRedUnits[i].UnitID != selectedUnit.UnitID)
+                {
+                    _selectedRedUnits[i] = selectedUnit;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void RemoveBlueUnit(int unitID)
+    {
+        for (int i = 0; i < _selectedBlueUnits.Count; i++)
+        {
+            if (_selectedBlueUnits[i].UnitID == unitID)
+            {
+                _selectedBlueUnits.RemoveAt(i);
+                return;
+            }
+        }
+    }
+
+    public void RemoveRedUnit(int unitID)
+    {
+        for (int i = 0; i < _selectedRedUnits.Count; i++)
+        {
+            if (_selectedRedUnits[i].UnitID == unitID)
+            {
+                _selectedRedUnits.RemoveAt(i);
                 return;
             }
         }
