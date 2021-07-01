@@ -9,11 +9,11 @@ public class Unit : MonoBehaviour, IUnitSelected
     public bool IsSelected;
 
     [Header("Unit Movement")]
-    public UnitMovement _unitMovement;
+    public UnitController _unitController;
 
     private void Start()
     {
-        _unitMovement = GetComponent<UnitMovement>();
+        _unitController = FindObjectOfType<UnitController>();
     }
 
     private void OnMouseDown()
@@ -26,10 +26,13 @@ public class Unit : MonoBehaviour, IUnitSelected
         if (!IsSelected)
         {
             IsSelected = true;
+            _unitController.AddUnit(GetComponent<Unit>());
+            
         }
         else
         {
             IsSelected = false;
+            _unitController.RemoveUnit(UnitID);
         }
     }
 }

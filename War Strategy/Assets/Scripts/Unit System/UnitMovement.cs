@@ -14,6 +14,13 @@ public class UnitMovement : MonoBehaviour
     [Header("Target")]
     [SerializeField] private Transform _target;
 
+    private Unit _unit;
+
+    private void Start()
+    {
+        _unit = GetComponent<Unit>();
+    }
+
     private void Update()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
