@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum TeamGroup {Blue, Red}
+public enum TeamGroup { Blue, Red }
 public class Unit : MonoBehaviour, IUnitSelected
 {
     [Header("Info")]
@@ -27,27 +27,38 @@ public class Unit : MonoBehaviour, IUnitSelected
         {
             IsSelected = true;
             
-            if (CurrentTeamGroup == TeamGroup.Blue)
+            if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
             {
-                _unitController.AddBlueUnit(GetComponent<Unit>());
+                if (CurrentTeamGroup == TeamGroup.Blue)
+                {
+                    _unitController.AddBlueUnit(GetComponent<Unit>());
+                }
             }
             else
             {
-                _unitController.AddRedUnit(GetComponent<Unit>());
+                if (CurrentTeamGroup == TeamGroup.Red)
+                {
+                    _unitController.AddRedUnit(GetComponent<Unit>());
+                }
             }
-            
         }
         else
         {
             IsSelected = false;
 
-            if (CurrentTeamGroup == TeamGroup.Blue)
+            if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
             {
-                _unitController.RemoveBlueUnit(UnitID);
+                if (CurrentTeamGroup == TeamGroup.Blue)
+                {
+                    _unitController.RemoveBlueUnit(UnitID);
+                }
             }
             else
             {
-                _unitController.RemoveRedUnit(UnitID);
+                if (CurrentTeamGroup == TeamGroup.Red)
+                {
+                    _unitController.RemoveRedUnit(UnitID);
+                }
             }
         }
     }

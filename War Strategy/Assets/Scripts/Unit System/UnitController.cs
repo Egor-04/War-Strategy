@@ -6,7 +6,7 @@ public enum TeamGroupControll {Blue, Red}
 public class UnitController : MonoBehaviour
 {
     [Header("Team Under Controll")]
-    [SerializeField] private TeamGroupControll _teamGroupControll;
+    public TeamGroupControll TeamGroupUnderControll;
 
     [SerializeField] private List<Unit> _selectedBlueUnits;
     [SerializeField] private List<Unit> _selectedRedUnits;
