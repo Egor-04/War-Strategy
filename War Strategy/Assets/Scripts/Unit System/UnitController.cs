@@ -19,6 +19,8 @@ public class UnitController : MonoBehaviour
     [SerializeField] private GameObject _cellPrefab;
     [SerializeField] private Transform _selectedUnitsUI;
 
+    private bool _noPlace;
+
     private void ShowBlueUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
@@ -37,7 +39,16 @@ public class UnitController : MonoBehaviour
 
     public void AddBlueUnit(Unit selectedUnit)
     {
-        if (_selectedBlueUnits.Count >= _minSelectedUnits && _selectedBlueUnits.Count <= _maxSelectedUnits)
+        if (_selectedBlueUnits.Count >= _minSelectedUnits && _selectedBlueUnits.Count < _maxSelectedUnits)
+        {
+            _noPlace = false;
+        }
+        else
+        {
+            _noPlace = true;
+        }
+
+        if (!_noPlace)
         {
             _selectedBlueUnits.Add(new Unit());
 
@@ -60,6 +71,15 @@ public class UnitController : MonoBehaviour
     public void AddRedUnit(Unit selectedUnit)
     {
         if (_selectedRedUnits.Count >= _minSelectedUnits && _selectedRedUnits.Count <= _maxSelectedUnits)
+        {
+            _noPlace = false;
+        }
+        else
+        {
+            _noPlace = true;
+        }
+
+        if (!_noPlace)
         {
             _selectedRedUnits.Add(new Unit());
 
