@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementTarget: {fileID: 2354490270212466143, guid: 4a203f824ed3175479d30b9a8fe80d07, type: 3}
+  _rayLength: 6000
   _mouseButton: 324
 --- !u!1001 &882273749
 PrefabInstance:

@@ -7,6 +7,7 @@ public class UnitMovement : MonoBehaviour
 {
     [Header("Values")]
     [SerializeField] private float _speed;
+    [SerializeField] private float _distance;
     
     [Header("Nav Mesh Agent")]
     [SerializeField] private NavMeshAgent _navMeshAgent;
@@ -31,17 +32,19 @@ public class UnitMovement : MonoBehaviour
         if (_movementTarget)
         {
             float currentTargetDistance = Vector3.SqrMagnitude(_movementTarget.position - transform.position);
+            _distance = currentTargetDistance;
 
-            if (currentTargetDistance >= 0f)
+            if (currentTargetDistance >= 20f)
             {
+                _navMeshAgent.enabled = true;
                 transform.LookAt(_movementTarget);
                 _navMeshAgent.SetDestination(_movementTarget.position);
-                transform.eulerAngles = new Vector3( 0f, transform.eulerAngles.y, 0f);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
             else
             {
                 _movementTarget = null;
-                return;
+                _navMeshAgent.enabled = false;
             }
         }
     }

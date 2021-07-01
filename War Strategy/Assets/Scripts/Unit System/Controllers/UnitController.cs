@@ -13,23 +13,28 @@ public class UnitController : MonoBehaviour
     [Header("Button Create Target")]
     [SerializeField] private KeyCode _mouseButton = KeyCode.Mouse1;
 
+    private Camera _camera;
     private UnitSelect _unitSelect;
 
     private void Start()
     {
+        _camera = FindObjectOfType<Camera>();
         _unitSelect = GetComponent<UnitSelect>();
     }
 
     private void Update()
     {
+        Debug.DrawRay(Input.mousePosition, _camera.transform.forward * _rayLength, Color.red);
+
         if (Input.GetKeyDown(_mouseButton))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 mousePosition = Input.mousePosition;
+            Ray ray = new Ray(mousePosition, _camera.transform.forward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, _rayLength))
             {
-                Transform movementTarget = Instantiate(_movementTarget, hit.transform.position, Quaternion.identity);
+                Transform movementTarget = Instantiate(_movementTarget, hit.point, Quaternion.identity);
                 _unitSelect.GiveUnitTask(movementTarget);
             }
         }
