@@ -757,7 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cfac8b4a52f7647bbde3edd61aa5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamGroupUnderControll: 0
+  TeamGroupUnderControll: 1
   _minSelectedUnits: 0
   _maxSelectedUnits: 5
   _selectedBlueUnits: []

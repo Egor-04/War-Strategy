@@ -23,12 +23,15 @@ public class UnitController : MonoBehaviour
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
         cell.transform.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
+        cell.GetComponent<UnitIcon>().SetCurrentUnit(selectedUnit);
+        return;
     }
 
     private void ShowRedUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
         cell.transform.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
+        cell.GetComponent<UnitIcon>().SetCurrentUnit(selectedUnit);
         return;
     }
 
@@ -56,7 +59,7 @@ public class UnitController : MonoBehaviour
 
     public void AddRedUnit(Unit selectedUnit)
     {
-        if (_selectedBlueUnits.Count >= _minSelectedUnits && _selectedBlueUnits.Count <= _maxSelectedUnits)
+        if (_selectedRedUnits.Count >= _minSelectedUnits && _selectedRedUnits.Count <= _maxSelectedUnits)
         {
             _selectedRedUnits.Add(new Unit());
 
@@ -66,8 +69,8 @@ public class UnitController : MonoBehaviour
                 {
                     if (_selectedRedUnits[i].UnitID != selectedUnit.UnitID)
                     {
-                        _selectedBlueUnits[i].IsSelected = true;
                         _selectedRedUnits[i] = selectedUnit;
+                        _selectedRedUnits[i].IsSelected = true;
                         ShowRedUnitIcon(selectedUnit);
                         return;
                     }
@@ -95,7 +98,7 @@ public class UnitController : MonoBehaviour
         {
             if (_selectedRedUnits[i].UnitID == deselectedUnit.UnitID)
             {
-                _selectedBlueUnits[i].IsSelected = false;
+                _selectedRedUnits[i].IsSelected = false;
                 _selectedRedUnits.RemoveAt(i);
                 return;
             }

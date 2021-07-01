@@ -47,22 +47,5 @@ public class Unit : MonoBehaviour, IUnitSelected
                 }
             }
         }
-        else
-        {
-            if (_unitController.TeamGroupUnderControll == TeamGroupControll.Blue)
-            {
-                if (CurrentTeamGroup == TeamGroup.Blue)
-                {
-                    _unitController.RemoveBlueUnit(GetComponent<Unit>());
-                }
-            }
-            else
-            {
-                if (CurrentTeamGroup == TeamGroup.Red)
-                {
-                    _unitController.RemoveRedUnit(GetComponent<Unit>());
-                }
-            }
-        }
     }
 }
