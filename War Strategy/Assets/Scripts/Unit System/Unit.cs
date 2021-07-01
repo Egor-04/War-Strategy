@@ -8,6 +8,14 @@ public class Unit : MonoBehaviour, IUnitSelected
     public int UnitID;
     public bool IsSelected;
 
+    [Header("Unit Movement")]
+    public UnitMovement _unitMovement;
+
+    private void Start()
+    {
+        _unitMovement = GetComponent<UnitMovement>();
+    }
+
     private void OnMouseDown()
     {
         Select();
