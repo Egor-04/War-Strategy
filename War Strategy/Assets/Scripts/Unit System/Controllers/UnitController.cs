@@ -97,7 +97,32 @@ public class UnitController : MonoBehaviour
                 }
             }
         }
-        else
+        else if (hitInfo.transform.gameObject.GetComponent<ResourceSource>())
+        {
+            ResourceSource targetResource = hitInfo.transform.gameObject.GetComponent<ResourceSource>();
+
+            if (targetResource.CurrentResourceType == ResourceType.Crystal)
+            {
+                if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
+                {
+                    for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                    {
+                        CreateWorkingTask(targetResource.transform);
+                    }
+                }
+                else
+                {
+                    if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Red)
+                    {
+                        for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                        {
+                            CreateWorkingTask(targetResource.transform);
+                        }
+                    }
+                }
+            }
+        }
+        else if (hitInfo.transform)
         {
             Transform movementTarget = hitInfo.transform;
             
@@ -111,6 +136,11 @@ public class UnitController : MonoBehaviour
     private void CreateBattleTask(Transform battleTarget)
     {
         _unitSelect.GiveBattleTask(battleTarget);
+    }
+
+    private void CreateWorkingTask(Transform resourceTarget)
+    {
+        _unitSelect.GiveWorkTask(resourceTarget);
     }
 
     private void CreateMovementTask(RaycastHit hitInfo)

@@ -19,11 +19,19 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] private float _minAttackDistance;
     [SerializeField] private float _damageForce;
 
+    [Header("Resource Target")]
+    public Transform ResourceTarget;
+    [SerializeField] private float _minWorkDistance;
+    [SerializeField] private int _toolDamageForce;
+
     private AttackBehaviour _attackBehavour;
+    private WorkingBehaviour _workingBehaviour;
 
     private void Start()
     {
         _attackBehavour = GetComponent<AttackBehaviour>();
+
+        _workingBehaviour = GetComponent<WorkingBehaviour>();
     }
 
     private void Update()
@@ -32,11 +40,13 @@ public class UnitMovement : MonoBehaviour
 
         MoveToTarget();
         AttackTarget();
+        MoveToResourceTarget();
     }
 
     public void SetMovementTarget(Transform movementTarget)
     {
         MovementTarget = movementTarget;
+        ResourceTarget = null;
     }
 
     public void SetBattleTarget(Transform battleTarget, float minAttackDistance, float damageForce)
@@ -46,6 +56,39 @@ public class UnitMovement : MonoBehaviour
         _damageForce = damageForce;
 
         AttackTarget();
+    }
+
+    public void SetResourceTarget(Transform resourceTarget, float minWorkDistance, int toolDamageForce) // CollectThisResourceTarget ===> MoveToResourceTarget ===> Work ===> GetCrystal
+    {
+        MovementTarget = null;
+        ResourceTarget = resourceTarget;
+        _minWorkDistance = minWorkDistance;
+        _toolDamageForce = toolDamageForce;
+
+        MoveToResourceTarget();
+    }
+
+    private void MoveToResourceTarget()
+    {
+        if (ResourceTarget)
+        {
+            float currentResourceTargetDistance = Vector3.SqrMagnitude(ResourceTarget.position - transform.position);
+            _distance = currentResourceTargetDistance;
+
+            if (currentResourceTargetDistance > _minWorkDistance)
+            {
+                NavMeshAgent.enabled = true;
+                transform.LookAt(ResourceTarget);
+                NavMeshAgent.SetDestination(ResourceTarget.position);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+            }
+
+            if (currentResourceTargetDistance <= _minWorkDistance)
+            {
+                NavMeshAgent.enabled = false;
+                _workingBehaviour.Work();
+            }
+        }
     }
 
     private void AttackTarget()

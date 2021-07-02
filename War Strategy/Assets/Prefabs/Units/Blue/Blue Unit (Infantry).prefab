@@ -721,6 +721,9 @@ MonoBehaviour:
   BattleTarget: {fileID: 0}
   _minAttackDistance: 0
   _damageForce: 0
+  ResourceTarget: {fileID: 0}
+  _minWorkDistance: 0
+  _toolDamageForce: 0
 --- !u!114 &1559805445
 MonoBehaviour:
   m_ObjectHideFlags: 0

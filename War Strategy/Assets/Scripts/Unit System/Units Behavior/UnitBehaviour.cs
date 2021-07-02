@@ -3,24 +3,26 @@ using UnityEngine;
 public enum BehaviourType {Attacking, Workring}
 public class UnitBehaviour : MonoBehaviour
 {
-    [SerializeField] private BehaviourType CurrentBehaviourType;
+    public BehaviourType CurrentBehaviourType;
 
     private AttackBehaviour _attackBehaviour;
+    private WorkingBehaviour _workingBehaviour;
 
     private void Start()
     {
         _attackBehaviour = GetComponent<AttackBehaviour>();
+        _workingBehaviour = GetComponent<WorkingBehaviour>();
     }
 
-    public void CurrentBehaviour(Transform battleTarget)
+    public void CurrentBehaviour(Transform target)
     {
         if (CurrentBehaviourType == BehaviourType.Attacking)
         {
-            _attackBehaviour.AttackThisTarget(battleTarget);
+            _attackBehaviour.AttackThisTarget(target);
         }
         else if (CurrentBehaviourType == BehaviourType.Workring)
         {
-            return;
+            _workingBehaviour.CollectThisResourceTarget(target);
         }
     }
 }

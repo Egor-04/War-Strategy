@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 8081065422094788043}
   - component: {fileID: 728003547}
   - component: {fileID: 728003548}
+  - component: {fileID: 6788556022644127741}
   m_Layer: 0
   m_Name: Blue Unit (Worker)
   m_TagString: Untagged
@@ -998,6 +999,9 @@ MonoBehaviour:
   BattleTarget: {fileID: 0}
   _minAttackDistance: 0
   _damageForce: 0
+  ResourceTarget: {fileID: 0}
+  _minWorkDistance: 0
+  _toolDamageForce: 0
 --- !u!114 &728003547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1027,6 +1031,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentBehaviourType: 1
+--- !u!114 &6788556022644127741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011389192669089173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08796a775204f5142a33083a6273d5a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _workTarget: {fileID: 0}
+  _comandCenter: {fileID: 0}
+  _collectedResourcesCount: 0
+  _searchArea: {fileID: 2011389192669089177}
+  _radius: 50
+  _toolDamageForce: 1
+  _minWorkDistance: 280
+  _workTime: 8
+  _red: 0
+  _green: 1
+  _blue: 0
 --- !u!1 &6393947133352431148
 GameObject:
   m_ObjectHideFlags: 0

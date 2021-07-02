@@ -60,6 +60,14 @@ public class UnitSelect : MonoBehaviour
         }
     }
 
+    public void GiveWorkTask(Transform workTarget)
+    {
+        for (int i = 0; i < SelectedBlueUnits.Count; i++)
+        {
+            SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
+        }
+    }
+
     public void GiveUnitMovementTask(Transform movementTarget)
     {
         if (TeamGroupUnderControll == TeamGroupControll.Blue)
