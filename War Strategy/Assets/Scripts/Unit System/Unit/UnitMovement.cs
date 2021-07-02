@@ -52,6 +52,8 @@ public class UnitMovement : MonoBehaviour
     {
         if (BattleTarget)
         {
+            MovementTarget = null;
+
             float currentTargetDistance = Vector3.SqrMagnitude(BattleTarget.position - transform.position);
             _distance = currentTargetDistance;
 
@@ -85,6 +87,8 @@ public class UnitMovement : MonoBehaviour
     {
         if (MovementTarget)
         {
+            BattleTarget = null;
+
             float currentTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
             _distance = currentTargetDistance;
 

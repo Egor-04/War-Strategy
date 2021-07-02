@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac38a6444a833b4988a02170c41d3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeDestroy: 2
+  _timeDestroy: 4
 --- !u!82 &5382195603143964827
 AudioSource:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 30
   MaxDistance: 500
   Pan2D: 0

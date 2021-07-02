@@ -121,20 +121,26 @@ public class AttackBehaviour : MonoBehaviour
 
     public void AttackNearbyTarget(Transform battleTarget)
     {
-        if (_currentTimeInterval <= 0f)
+        if (!_hasMovementTarget)
         {
-            _currentTimeInterval = 0f;
+            if (_currentTimeInterval <= 0f)
+            {
+                _currentTimeInterval = 0f;
 
-            float randomPositionX = Random.Range(battleTarget.position.x + _X, battleTarget.position.x - _X);
-            float randomPositionY = Random.Range(battleTarget.position.y + _Y, battleTarget.position.y - _Y);
-            float randomPositionZ = Random.Range(battleTarget.position.z + _Z, battleTarget.position.z - _Z);
+                float randomPositionX = Random.Range(battleTarget.position.x + _X, battleTarget.position.x - _X);
+                float randomPositionY = Random.Range(battleTarget.position.y + _Y, battleTarget.position.y - _Y);
+                float randomPositionZ = Random.Range(battleTarget.position.z + _Z, battleTarget.position.z - _Z);
 
-            Instantiate(_hitEffect, new Vector3(randomPositionX, randomPositionY, randomPositionZ), Quaternion.identity);
-            Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlash.transform.rotation);
+                Instantiate(_hitEffect, new Vector3(randomPositionX, randomPositionY, randomPositionZ), Quaternion.identity);
+                Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlash.transform.rotation);
+                AudioSource source = Instantiate(_source, transform.position, Quaternion.identity);
+                source.clip = _shotSound;
+                source.Play();
 
-            ObjectHealth targetHealth = battleTarget.gameObject.GetComponent<ObjectHealth>();
-            targetHealth.DamageHit(_damageForce);
-            _currentTimeInterval = _shootTimeInterval;
+                ObjectHealth targetHealth = battleTarget.gameObject.GetComponent<ObjectHealth>();
+                targetHealth.DamageHit(_damageForce);
+                _currentTimeInterval = _shootTimeInterval;
+            }
         }
     }
 

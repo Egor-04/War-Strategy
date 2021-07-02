@@ -12,8 +12,15 @@ public class UnitSelect : MonoBehaviour
     [Header("Selected Groups")]
     public int _minSelectedUnits = 0;
     public int _maxSelectedUnits = 5;
+    
+    [Header("Units")]
     public List<Unit> SelectedBlueUnits;
     public List<Unit> SelectedRedUnits;
+
+
+    [Header("Buildings")]
+    public List<Buildings> _selectedBlueBuilds;
+    public List<Buildings> _selectedRedBuilds;
 
     [Header("UI")]
     [SerializeField] private GameObject _cellPrefab;
@@ -27,14 +34,28 @@ public class UnitSelect : MonoBehaviour
         {
             for (int i = 0; i < SelectedBlueUnits.Count; i++)
             {
-                SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
+                if (SelectedBlueUnits[i] != null)
+                {
+                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
+                }
+                else
+                {
+                    RemoveBlueUnit(SelectedBlueUnits[i]);
+                }
             }
         }
         else
         {
             for (int i = 0; i < SelectedRedUnits.Count; i++)
             {
-                SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
+                if (SelectedRedUnits[i] != null)
+                {
+                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
+                }
+                else
+                {
+                    RemoveRedUnit(SelectedRedUnits[i]);
+                }
             }
         }
     }
