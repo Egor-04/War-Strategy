@@ -834,6 +834,8 @@ GameObject:
   - component: {fileID: 1273530503}
   - component: {fileID: 8081065422094788036}
   - component: {fileID: 8081065422094788043}
+  - component: {fileID: 728003547}
+  - component: {fileID: 728003548}
   m_Layer: 0
   m_Name: Blue Unit (Worker)
   m_TagString: Untagged
@@ -947,7 +949,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -972,9 +974,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentTeamGroup: 0
-  UnitID: 0
+  UnitID: 2
+  UnitIcon: {fileID: 21300000, guid: 98579af57c4620e43ae62f06746e98f2, type: 3}
   IsSelected: 0
-  _unitMovement: {fileID: 0}
+  UnitMovement: {fileID: 0}
+  UnitBehaviour: {fileID: 0}
 --- !u!114 &8081065422094788043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,9 +991,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _navMeshAgent: {fileID: 0}
-  _target: {fileID: 0}
+  _speed: 30
+  _distance: 0
+  NavMeshAgent: {fileID: 0}
+  _movementTarget: {fileID: 0}
+  _battleTarget: {fileID: 0}
+  _minAttackDistance: 0
+  _damageForce: 0
+--- !u!114 &728003547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011389192669089173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectHealth: 100
+--- !u!114 &728003548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011389192669089173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26e8e6f0a77de2408030fdf837162bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentBehaviourType: 1
 --- !u!1 &6393947133352431148
 GameObject:
   m_ObjectHideFlags: 0

@@ -192,6 +192,8 @@ GameObject:
   - component: {fileID: 2011389191610152084}
   - component: {fileID: 6945956316627920368}
   - component: {fileID: 6945956316627920383}
+  - component: {fileID: 915818542}
+  - component: {fileID: 915818543}
   m_Layer: 0
   m_Name: Red Unit (Worker)
   m_TagString: Untagged
@@ -305,7 +307,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -331,8 +333,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentTeamGroup: 1
   UnitID: 4
+  UnitIcon: {fileID: 21300000, guid: dfee512f44b97b846b738cbcfbfb2303, type: 3}
   IsSelected: 0
-  _unitMovement: {fileID: 0}
+  UnitMovement: {fileID: 0}
+  UnitBehaviour: {fileID: 0}
 --- !u!114 &6945956316627920383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,9 +349,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _navMeshAgent: {fileID: 0}
-  _target: {fileID: 0}
+  _speed: 30
+  _distance: 0
+  NavMeshAgent: {fileID: 0}
+  _movementTarget: {fileID: 0}
+  _battleTarget: {fileID: 0}
+  _minAttackDistance: 0
+  _damageForce: 0
+--- !u!114 &915818542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206326008369135081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectHealth: 100
+--- !u!114 &915818543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206326008369135081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26e8e6f0a77de2408030fdf837162bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentBehaviourType: 1
 --- !u!1 &2206326008369511110
 GameObject:
   m_ObjectHideFlags: 0

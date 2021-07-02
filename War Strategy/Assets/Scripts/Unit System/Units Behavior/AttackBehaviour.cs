@@ -12,6 +12,14 @@ public class AttackBehaviour : MonoBehaviour
     [Header("Damage Force")]
     [SerializeField] private float _damageForce;
 
+    [Header("Shot Effect")]
+    [SerializeField] private ParticleSystem _hitEffect;
+    [SerializeField] private ParticleSystem _muzzleFlash;
+    [SerializeField] private Transform _muzzleFlashSapwn;
+
+    [Header("Attack Interval")]
+    [SerializeField] private float _shootTimeInterval = 1f;
+
     [Header("Min Attack Distance")]
     [SerializeField] private float _minAttackDistance = 500f;
 
@@ -22,22 +30,56 @@ public class AttackBehaviour : MonoBehaviour
     [Header("Gizmos Color")]
     [SerializeField] private float _red = 1f, _green = 0f, _blue = 0f;
 
+    [SerializeField] private bool _hasBattleTarget;
+    [SerializeField] private bool _hasMovementTarget;
+
+    private float _currentTimeInterval;
+
     private Unit _currentUnit;
     private UnitMovement _unitMovement;
 
     private void Start()
     {
+        _currentUnit = GetComponent<Unit>();
         _unitMovement = GetComponent<UnitMovement>();
     }
 
     private void Update()
     {
+        _currentTimeInterval -= Time.deltaTime;
+
         if (_enemyTarget)
         {
             _currentDistance = Vector3.SqrMagnitude(_enemyTarget.position - transform.position);
         }
 
+        CheckMovementTargets();
+        CheckBattleTarget();
         FindNearbyEnemies();
+    }
+
+    private void CheckMovementTargets()
+    {
+        if (_unitMovement.MovementTarget)
+        {
+            _hasMovementTarget = true;
+        }
+        else
+        {
+            _hasMovementTarget = false;
+        }
+    }
+
+    private void CheckBattleTarget()
+    {
+        if (_unitMovement.BattleTarget)
+        {
+            _hasBattleTarget = true;
+        }
+        else
+        {
+            _hasBattleTarget = false;
+        }
     }
 
     private void FindNearbyEnemies()
@@ -50,7 +92,6 @@ public class AttackBehaviour : MonoBehaviour
             {
                 if (colliders[i].GetComponent<Unit>().CurrentTeamGroup != _currentUnit.CurrentTeamGroup)
                 {
-                    Debug.Log(colliders[i].name);
                     FollowTarget(colliders[i].transform);
                 }
             }
@@ -59,37 +100,36 @@ public class AttackBehaviour : MonoBehaviour
 
     public void FollowTarget(Transform currentTarget)
     {
-        float currentTargetDistance = Vector3.SqrMagnitude(currentTarget.position - transform.position);
-
-        Debug.Log("Nav Mesh Target" + currentTarget.name);
-        _unitMovement.SetTarget(currentTarget);
-
-        if (currentTargetDistance <= _minAttackDistance)
+        if (!_hasMovementTarget && !_hasBattleTarget)
         {
-            AttackNearbyTarget(currentTarget);
+            _unitMovement.SetBattleTarget(currentTarget, _minAttackDistance, _damageForce);
+        }
+        else
+        {
+            return;
         }
     }
 
-    private void AttackNearbyTarget(Transform nearbyTarget)
+    public void AttackNearbyTarget(Transform battleTarget)
     {
-        Debug.Log("Attacked " + nearbyTarget.name);
-        ObjectHealth targethealth = nearbyTarget.gameObject.GetComponent<ObjectHealth>();
-        targethealth.DamageHit(_damageForce * Time.deltaTime);
+        if (_currentTimeInterval <= 0f)
+        {
+            _currentTimeInterval = 0f;
+
+            Instantiate(_hitEffect, new Vector3(Random.Range(battleTarget.position.x + 5f, battleTarget.position.x - 5f), Random.Range(battleTarget.position.y + 5f, battleTarget.position.y - 5f), Random.Range(battleTarget.position.z + 5f, battleTarget.position.z - 5f)), Quaternion.identity);
+            Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlash.transform.rotation);
+
+            ObjectHealth targetHealth = battleTarget.gameObject.GetComponent<ObjectHealth>();
+            targetHealth.DamageHit(_damageForce);
+            _currentTimeInterval = _shootTimeInterval;
+        }
     }
 
     public void AttackThisTarget(Transform currentBattleTarget) // Срабатывает один раз, надо исправить
     {
         _enemyTarget = currentBattleTarget;
-
-        _unitMovement.SetTarget(currentBattleTarget);
-
-        if (_currentDistance <= _minAttackDistance)
-        {
-            _unitMovement.NavMeshAgent.enabled = false;
-            
-            ObjectHealth targethealth = currentBattleTarget.gameObject.GetComponent<ObjectHealth>();
-            targethealth.DamageHit(_damageForce);
-        }
+        _unitMovement.SetBattleTarget(currentBattleTarget, _minAttackDistance, _damageForce);
+        Debug.Log("Select Target For Attack");
     }
 
     private void OnDrawGizmos()

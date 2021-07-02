@@ -348,7 +348,8 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.5571, y: 0.1911, z: -1.1704}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_Children: []
+  m_Children:
+  - {fileID: 5728335659519888015}
   m_Father: {fileID: 833762412}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -510,6 +511,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5728335659519888014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5728335659519888015}
+  m_Layer: 0
+  m_Name: Effect Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5728335659519888015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5728335659519888014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1994682673}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6518851299997693809
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +557,9 @@ GameObject:
   - component: {fileID: 6518851299997693812}
   - component: {fileID: 2144964987}
   - component: {fileID: 2144964988}
+  - component: {fileID: 1559805445}
+  - component: {fileID: 1559805446}
+  - component: {fileID: 1559805447}
   m_Layer: 0
   m_Name: Blue Unit (Infantry)
   m_TagString: Untagged
@@ -540,15 +574,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6518851299997693809}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 16.68, y: 3.85, z: 58.82}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 833762412}
   - {fileID: 1170571488}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &6518851299997693814
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -638,7 +672,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -663,9 +697,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentTeamGroup: 0
-  UnitID: 0
+  UnitID: 1
+  UnitIcon: {fileID: 21300000, guid: 8a58090329560554eb3e781398688190, type: 3}
   IsSelected: 0
-  _unitMovement: {fileID: 0}
+  UnitMovement: {fileID: 0}
+  UnitBehaviour: {fileID: 0}
 --- !u!114 &2144964988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,6 +714,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _navMeshAgent: {fileID: 0}
-  _target: {fileID: 0}
+  _speed: 30
+  _distance: 0
+  NavMeshAgent: {fileID: 0}
+  MovementTarget: {fileID: 0}
+  BattleTarget: {fileID: 0}
+  _minAttackDistance: 0
+  _damageForce: 0
+--- !u!114 &1559805445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518851299997693809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectHealth: 100
+--- !u!114 &1559805446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518851299997693809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26e8e6f0a77de2408030fdf837162bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentBehaviourType: 0
+--- !u!114 &1559805447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518851299997693809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db330158478d5e5488ca30f1a963c169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTarget: {fileID: 0}
+  _currentDistance: 0
+  _damageForce: 5
+  _hitEffect: {fileID: 0}
+  _muzzleFlash: {fileID: 0}
+  _muzzleFlashSapwn: {fileID: 5728335659519888015}
+  _shootTimeInterval: 1
+  _minAttackDistance: 500
+  _searchArea: {fileID: 6518851299997693813}
+  _searchRadius: 100
+  _red: 1
+  _green: 0
+  _blue: 0
+  _hasMovementTarget: 0

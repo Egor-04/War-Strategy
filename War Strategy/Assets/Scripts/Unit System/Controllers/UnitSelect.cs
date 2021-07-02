@@ -30,6 +30,13 @@ public class UnitSelect : MonoBehaviour
                 SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
             }
         }
+        else
+        {
+            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            {
+                SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
+            }
+        }
     }
 
     public void GiveUnitMovementTask(Transform movementTarget)
@@ -38,14 +45,14 @@ public class UnitSelect : MonoBehaviour
         {
             for (int i = 0; i < SelectedBlueUnits.Count; i++)
             {
-                SelectedBlueUnits[i].UnitMovement.SetTarget(movementTarget);
+                SelectedBlueUnits[i].UnitMovement.SetMovementTarget(movementTarget);
             }
         }
         else
         {
             for (int i = 0; i < SelectedRedUnits.Count; i++)
             {
-                SelectedRedUnits[i].UnitMovement.SetTarget(movementTarget);
+                SelectedRedUnits[i].UnitMovement.SetMovementTarget(movementTarget);
             }
         }
     }

@@ -12,10 +12,21 @@ public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
         _unitSelect = FindObjectOfType<UnitSelect>();
     }
 
+    private void Update()
+    {
+        
+    }
+
+    private void CheckUnit()
+    {
+
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         Deselect();
     }
+
 
     public void SetCurrentUnit(Unit selectedUnit)
     {
