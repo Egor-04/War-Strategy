@@ -32,7 +32,11 @@ public class AttackBehaviour : MonoBehaviour
 
     private void Update()
     {
-        _currentDistance = Vector3.SqrMagnitude(_enemyTarget.position - transform.position);
+        if (_enemyTarget)
+        {
+            _currentDistance = Vector3.SqrMagnitude(_enemyTarget.position - transform.position);
+        }
+
         FindNearbyEnemies();
     }
 
@@ -42,9 +46,13 @@ public class AttackBehaviour : MonoBehaviour
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].GetComponent<Unit>().CurrentTeamGroup != _currentUnit.CurrentTeamGroup)
+            if (colliders[i].GetComponent<Unit>())
             {
-                FollowTarget(colliders[i].transform);
+                if (colliders[i].GetComponent<Unit>().CurrentTeamGroup != _currentUnit.CurrentTeamGroup)
+                {
+                    Debug.Log(colliders[i].name);
+                    FollowTarget(colliders[i].transform);
+                }
             }
         }
     }
@@ -53,6 +61,7 @@ public class AttackBehaviour : MonoBehaviour
     {
         float currentTargetDistance = Vector3.SqrMagnitude(currentTarget.position - transform.position);
 
+        Debug.Log("Nav Mesh Target" + currentTarget.name);
         _unitMovement.SetTarget(currentTarget);
 
         if (currentTargetDistance <= _minAttackDistance)
@@ -63,6 +72,7 @@ public class AttackBehaviour : MonoBehaviour
 
     private void AttackNearbyTarget(Transform nearbyTarget)
     {
+        Debug.Log("Attacked " + nearbyTarget.name);
         ObjectHealth targethealth = nearbyTarget.gameObject.GetComponent<ObjectHealth>();
         targethealth.DamageHit(_damageForce * Time.deltaTime);
     }

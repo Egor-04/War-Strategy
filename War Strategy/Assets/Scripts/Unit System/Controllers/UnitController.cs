@@ -57,32 +57,39 @@ public class UnitController : MonoBehaviour
 
     private void CreateTask(RaycastHit hitInfo)
     {
-        Transform movementTarget = hitInfo.transform;
-        Unit targetUnit = hitInfo.transform.gameObject.GetComponent<Unit>();
-        //Build targetBuild = hitInfo.transform.gameObject.GetComponent<Build>();
-        
-        if (movementTarget)
+        if (hitInfo.transform.gameObject.GetComponent<Unit>())
         {
-            CreateMovementTask(hitInfo);
+            Unit targetUnit = hitInfo.transform.gameObject.GetComponent<Unit>();
+            //Build targetBuild = hitInfo.transform.gameObject.GetComponent<Build>();
+
+            if (targetUnit)
+            {
+                if (targetUnit.CurrentTeamGroup == TeamGroup.Blue)
+                {
+                    for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                    {
+                        CreateBattleTask(targetUnit.transform);
+                    }
+                }
+                else if (targetUnit.CurrentTeamGroup == TeamGroup.Red)
+                {
+                    for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                    {
+                        CreateBattleTask(targetUnit.transform);
+                    }
+                }
+            }
+        }
+        else
+        {
+            Transform movementTarget = hitInfo.transform;
+            
+            if (movementTarget)
+            {
+                CreateMovementTask(hitInfo);
+            }
         }
 
-        if (targetUnit)
-        {
-            if (targetUnit.CurrentTeamGroup == TeamGroup.Blue)
-            {
-                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
-                {
-                    CreateBattleTask(targetUnit.transform);
-                }
-            }
-            else if (targetUnit.CurrentTeamGroup == TeamGroup.Red)
-            {
-                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
-                {
-                    CreateBattleTask(targetUnit.transform);
-                }
-            }
-        }
     }
 
     private void CreateBattleTask(Transform battleTarget)
