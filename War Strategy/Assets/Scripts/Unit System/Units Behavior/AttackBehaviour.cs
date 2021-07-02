@@ -20,6 +20,15 @@ public class AttackBehaviour : MonoBehaviour
     [Header("Attack Interval")]
     [SerializeField] private float _shootTimeInterval = 1f;
 
+    [Header("Audio Shot")]
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _shotSound;
+
+    [Header("Hit Effect Random Spawn")]
+    [SerializeField] private float _X = 3f;
+    [SerializeField] private float _Y = 3f;
+    [SerializeField] private float _Z = 3f;
+
     [Header("Min Attack Distance")]
     [SerializeField] private float _minAttackDistance = 500f;
 
@@ -116,7 +125,11 @@ public class AttackBehaviour : MonoBehaviour
         {
             _currentTimeInterval = 0f;
 
-            Instantiate(_hitEffect, new Vector3(Random.Range(battleTarget.position.x + 5f, battleTarget.position.x - 5f), Random.Range(battleTarget.position.y + 5f, battleTarget.position.y - 5f), Random.Range(battleTarget.position.z + 5f, battleTarget.position.z - 5f)), Quaternion.identity);
+            float randomPositionX = Random.Range(battleTarget.position.x + _X, battleTarget.position.x - _X);
+            float randomPositionY = Random.Range(battleTarget.position.y + _Y, battleTarget.position.y - _Y);
+            float randomPositionZ = Random.Range(battleTarget.position.z + _Z, battleTarget.position.z - _Z);
+
+            Instantiate(_hitEffect, new Vector3(randomPositionX, randomPositionY, randomPositionZ), Quaternion.identity);
             Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlash.transform.rotation);
 
             ObjectHealth targetHealth = battleTarget.gameObject.GetComponent<ObjectHealth>();
