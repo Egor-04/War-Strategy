@@ -7,8 +7,11 @@ public class UnitController : MonoBehaviour
     [Header("Movement Target Prefab")]
     [SerializeField] Transform _movementTarget;
 
+    [Header("Tap Count for Movement")]
+    [SerializeField] private int _tapCount = 2;
+
     [Header("Ray Length")]
-    [SerializeField] private float _rayLength = 500f;
+    [SerializeField] private float _rayLength = 5000f;
 
     [Header("Button Create Target")]
     [SerializeField] private KeyCode _mouseButton = KeyCode.Mouse1;
@@ -24,18 +27,32 @@ public class UnitController : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(Input.mousePosition, _camera.transform.forward * _rayLength, Color.red);
-
-        if (Input.GetKeyDown(_mouseButton))
+        if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Vector3 mousePosition = Input.mousePosition;
-            Ray ray = new Ray(mousePosition, _camera.transform.forward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, _rayLength))
+            if (Input.GetKeyDown(_mouseButton))
             {
-                Transform movementTarget = Instantiate(_movementTarget, hit.point, Quaternion.identity);
-                _unitSelect.GiveUnitTask(movementTarget);
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, _rayLength))
+                {
+                    Transform movementTarget = Instantiate(_movementTarget, hit.point, Quaternion.identity);
+                    _unitSelect.GiveUnitTask(movementTarget);
+                }
+            }
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetTouch(0).tapCount == _tapCount)
+            {
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, _rayLength))
+                {
+                    Transform movementTarget = Instantiate(_movementTarget, hit.point, Quaternion.identity);
+                    _unitSelect.GiveUnitTask(movementTarget);
+                }
             }
         }
     }
