@@ -36,8 +36,7 @@ public class UnitController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, _rayLength))
                 {
-                    Transform movementTarget = Instantiate(_movementTarget, hit.point, Quaternion.identity);
-                    _unitSelect.GiveUnitTask(movementTarget);
+                    CreateTask(hit);
                 }
             }
         }
@@ -50,10 +49,50 @@ public class UnitController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, _rayLength))
                 {
-                    Transform movementTarget = Instantiate(_movementTarget, hit.point, Quaternion.identity);
-                    _unitSelect.GiveUnitTask(movementTarget);
+                    CreateTask(hit);
                 }
             }
         }
+    }
+
+    private void CreateTask(RaycastHit hitInfo)
+    {
+        Transform movementTarget = hitInfo.transform;
+        Unit targetUnit = hitInfo.transform.gameObject.GetComponent<Unit>();
+        //Build targetBuild = hitInfo.transform.gameObject.GetComponent<Build>();
+        
+        if (movementTarget)
+        {
+            CreateMovementTask(hitInfo);
+        }
+
+        if (targetUnit)
+        {
+            if (targetUnit.CurrentTeamGroup == TeamGroup.Blue)
+            {
+                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                {
+                    CreateBattleTask(targetUnit.transform);
+                }
+            }
+            else if (targetUnit.CurrentTeamGroup == TeamGroup.Red)
+            {
+                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                {
+                    CreateBattleTask(targetUnit.transform);
+                }
+            }
+        }
+    }
+
+    private void CreateBattleTask(Transform battleTarget)
+    {
+        _unitSelect.GiveBattleTask(battleTarget);
+    }
+
+    private void CreateMovementTask(RaycastHit hitInfo)
+    {
+        Transform movementTarget = Instantiate(_movementTarget, hitInfo.point, Quaternion.identity);
+        _unitSelect.GiveUnitMovementTask(movementTarget);
     }
 }

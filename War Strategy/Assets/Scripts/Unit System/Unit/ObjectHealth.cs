@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitHealth : MonoBehaviour
+public class ObjectHealth : MonoBehaviour
 {
-    [SerializeField] private float _unitHealth;
+    [SerializeField] private float _objectHealth;
 
     private void Update()
     {
@@ -13,15 +13,15 @@ public class UnitHealth : MonoBehaviour
 
     private void CheckHealth()
     {
-        if (_unitHealth <= 0f)
+        if (_objectHealth <= 0f)
         {
-            _unitHealth = 0f;
+            _objectHealth = 0f;
             Destroy(gameObject);
         }
     }
 
-    public void TakeDamage(float damageForce)
+    public void DamageHit(float damageForce)
     {
-        _unitHealth -= damageForce;
+        _objectHealth -= damageForce;
     }
 }

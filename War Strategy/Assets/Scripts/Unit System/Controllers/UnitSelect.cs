@@ -10,10 +10,10 @@ public class UnitSelect : MonoBehaviour
     public TeamGroupControll TeamGroupUnderControll;
 
     [Header("Selected Groups")]
-    [SerializeField] private int _minSelectedUnits = 0;
-    [SerializeField] private int _maxSelectedUnits = 5;
-    [SerializeField] private List<Unit> _selectedBlueUnits;
-    [SerializeField] private List<Unit> _selectedRedUnits;
+    public int _minSelectedUnits = 0;
+    public int _maxSelectedUnits = 5;
+    public List<Unit> SelectedBlueUnits;
+    public List<Unit> SelectedRedUnits;
 
     [Header("UI")]
     [SerializeField] private GameObject _cellPrefab;
@@ -21,24 +21,36 @@ public class UnitSelect : MonoBehaviour
 
     private bool _noPlace;
 
-    public void GiveUnitTask(Transform movementTarget)
+    public void GiveBattleTask(Transform battleTarget)
     {
         if (TeamGroupUnderControll == TeamGroupControll.Blue)
         {
-            for (int i = 0; i < _selectedBlueUnits.Count; i++)
+            for (int i = 0; i < SelectedBlueUnits.Count; i++)
             {
-                _selectedBlueUnits[i].UnitMovement.SetTarget(movementTarget);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < _selectedRedUnits.Count; i++)
-            {
-                _selectedRedUnits[i].UnitMovement.SetTarget(movementTarget);
+                SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
             }
         }
     }
 
+    public void GiveUnitMovementTask(Transform movementTarget)
+    {
+        if (TeamGroupUnderControll == TeamGroupControll.Blue)
+        {
+            for (int i = 0; i < SelectedBlueUnits.Count; i++)
+            {
+                SelectedBlueUnits[i].UnitMovement.SetTarget(movementTarget);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            {
+                SelectedRedUnits[i].UnitMovement.SetTarget(movementTarget);
+            }
+        }
+    }
+
+    // Отображение выбранных юнитов
     private void ShowBlueUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
@@ -55,9 +67,10 @@ public class UnitSelect : MonoBehaviour
         return;
     }
 
+    // Система добавления юнитов в список выбранных
     public void AddBlueUnit(Unit selectedUnit)
     {
-        if (_selectedBlueUnits.Count >= _minSelectedUnits && _selectedBlueUnits.Count < _maxSelectedUnits)
+        if (SelectedBlueUnits.Count >= _minSelectedUnits && SelectedBlueUnits.Count < _maxSelectedUnits)
         {
             _noPlace = false;
         }
@@ -68,16 +81,16 @@ public class UnitSelect : MonoBehaviour
 
         if (!_noPlace)
         {
-            _selectedBlueUnits.Add(new Unit());
+            SelectedBlueUnits.Add(new Unit());
 
-            for (int i = 0; i < _selectedBlueUnits.Count; i++)
+            for (int i = 0; i < SelectedBlueUnits.Count; i++)
             {
-                if (_selectedBlueUnits[i] == null)
+                if (SelectedBlueUnits[i] == null)
                 {
-                    if (_selectedBlueUnits[i].UnitID != selectedUnit.UnitID)
+                    if (SelectedBlueUnits[i].UnitID != selectedUnit.UnitID)
                     {
-                        _selectedBlueUnits[i] = selectedUnit;
-                        _selectedBlueUnits[i].IsSelected = true;
+                        SelectedBlueUnits[i] = selectedUnit;
+                        SelectedBlueUnits[i].IsSelected = true;
                         ShowBlueUnitIcon(selectedUnit);
                         return;
                     }
@@ -88,7 +101,7 @@ public class UnitSelect : MonoBehaviour
 
     public void AddRedUnit(Unit selectedUnit)
     {
-        if (_selectedRedUnits.Count >= _minSelectedUnits && _selectedRedUnits.Count <= _maxSelectedUnits)
+        if (SelectedRedUnits.Count >= _minSelectedUnits && SelectedRedUnits.Count <= _maxSelectedUnits)
         {
             _noPlace = false;
         }
@@ -99,16 +112,16 @@ public class UnitSelect : MonoBehaviour
 
         if (!_noPlace)
         {
-            _selectedRedUnits.Add(new Unit());
+            SelectedRedUnits.Add(new Unit());
 
-            for (int i = 0; i < _selectedRedUnits.Count; i++)
+            for (int i = 0; i < SelectedRedUnits.Count; i++)
             {
-                if (_selectedRedUnits[i] == null)
+                if (SelectedRedUnits[i] == null)
                 {
-                    if (_selectedRedUnits[i].UnitID != selectedUnit.UnitID)
+                    if (SelectedRedUnits[i].UnitID != selectedUnit.UnitID)
                     {
-                        _selectedRedUnits[i] = selectedUnit;
-                        _selectedRedUnits[i].IsSelected = true;
+                        SelectedRedUnits[i] = selectedUnit;
+                        SelectedRedUnits[i].IsSelected = true;
                         ShowRedUnitIcon(selectedUnit);
                         return;
                     }
@@ -117,14 +130,15 @@ public class UnitSelect : MonoBehaviour
         }
     }
 
+    // Система удаления юнитов из списка выбранных
     public void RemoveBlueUnit(Unit deselectedUnit)
     {
-        for (int i = 0; i < _selectedBlueUnits.Count; i++)
+        for (int i = 0; i < SelectedBlueUnits.Count; i++)
         {
-            if (_selectedBlueUnits[i].UnitID == deselectedUnit.UnitID)
+            if (SelectedBlueUnits[i].UnitID == deselectedUnit.UnitID)
             {
-                _selectedBlueUnits[i].IsSelected = false;
-                _selectedBlueUnits.RemoveAt(i);
+                SelectedBlueUnits[i].IsSelected = false;
+                SelectedBlueUnits.RemoveAt(i);
                 return;
             }
         }
@@ -132,12 +146,12 @@ public class UnitSelect : MonoBehaviour
 
     public void RemoveRedUnit(Unit deselectedUnit)
     {
-        for (int i = 0; i < _selectedRedUnits.Count; i++)
+        for (int i = 0; i < SelectedRedUnits.Count; i++)
         {
-            if (_selectedRedUnits[i].UnitID == deselectedUnit.UnitID)
+            if (SelectedRedUnits[i].UnitID == deselectedUnit.UnitID)
             {
-                _selectedRedUnits[i].IsSelected = false;
-                _selectedRedUnits.RemoveAt(i);
+                SelectedRedUnits[i].IsSelected = false;
+                SelectedRedUnits.RemoveAt(i);
                 return;
             }
         }

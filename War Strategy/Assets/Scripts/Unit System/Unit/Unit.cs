@@ -11,15 +11,20 @@ public class Unit : MonoBehaviour, IUnitSelected
 
     [Header("Unit Movement")]
     public UnitMovement UnitMovement;
+    
+    [Header("Unit Behaviour")]
+    public UnitBehaviour UnitBehaviour;
 
-    private UnitSelect _unitSelect;
     private int _minID = 1;
     private int _maxID = 1000;
+
+    private UnitSelect _unitSelect;
 
     private void Start()
     {
         UnitID = Random.Range(_minID, _maxID);
         UnitMovement = GetComponent<UnitMovement>();
+        UnitBehaviour = GetComponent<UnitBehaviour>();
         _unitSelect = FindObjectOfType<UnitSelect>();
     }
 
