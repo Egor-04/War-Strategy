@@ -21,6 +21,7 @@ public class WorkingBehaviour : MonoBehaviour
 
     private void Update()
     {
-        
+        _currentworkTime -= Time.deltaTime;
+
     }
 }
