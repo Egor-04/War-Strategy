@@ -36,6 +36,7 @@ public class WorkingBehaviour : MonoBehaviour
     private void Start()
     {
         _unitMovement = GetComponent<UnitMovement>();
+        _comandCenter = FindObjectOfType<ComandCenter>().transform;
     }
 
     private void Update()
