@@ -104,6 +104,14 @@ public class AttackBehaviour : MonoBehaviour
                     FollowTarget(colliders[i].transform);
                 }
             }
+
+            if (colliders[i].GetComponent<Building>())
+            {
+                if (colliders[i].GetComponent<Building>().CurrentBuildingTeamGroup != _currentUnit.CurrentTeamGroup)
+                {
+                    FollowTarget(colliders[i].transform);
+                }
+            }
         }
     }
 

@@ -994,8 +994,8 @@ MonoBehaviour:
   _speed: 30
   _distance: 0
   NavMeshAgent: {fileID: 0}
-  _movementTarget: {fileID: 0}
-  _battleTarget: {fileID: 0}
+  MovementTarget: {fileID: 0}
+  BattleTarget: {fileID: 0}
   _minAttackDistance: 0
   _damageForce: 0
 --- !u!114 &728003547
@@ -1011,6 +1011,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectHealth: 100
+  _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
+  _killSound:
+  - {fileID: 8300000, guid: da40a377245df1044b52e28f45931f14, type: 3}
 --- !u!114 &728003548
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,8 +19,8 @@ public class UnitSelect : MonoBehaviour
 
 
     [Header("Buildings")]
-    public List<Buildings> _selectedBlueBuilds;
-    public List<Buildings> _selectedRedBuilds;
+    public List<Building> _selectedBlueBuilds;
+    public List<Building> _selectedRedBuilds;
 
     [Header("UI")]
     [SerializeField] private GameObject _cellPrefab;

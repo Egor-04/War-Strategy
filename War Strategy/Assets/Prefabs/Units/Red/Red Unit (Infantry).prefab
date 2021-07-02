@@ -734,6 +734,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectHealth: 100
+  _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
+  _killSound:
+  - {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
+  - {fileID: 8300000, guid: c922847483ccc5640b831fc039201753, type: 3}
 --- !u!114 &714081208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,14 +766,20 @@ MonoBehaviour:
   _enemyTarget: {fileID: 0}
   _currentDistance: 0
   _damageForce: 5
-  _hitEffect: {fileID: 0}
-  _muzzleFlash: {fileID: 0}
+  _hitEffect: {fileID: 3583929335553733533, guid: bd6bfe071af16ef43a257942918bd4a3, type: 3}
+  _muzzleFlash: {fileID: 1141309047597584224, guid: 460d40fa122a3ee4c8fce7380328a1d2, type: 3}
   _muzzleFlashSapwn: {fileID: 4249180012925851550}
   _shootTimeInterval: 1
-  _minAttackDistance: 500
+  _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
+  _shotSound: {fileID: 8300000, guid: 3a83dcb18c729c84da08c16ad03b3103, type: 3}
+  _X: 3
+  _Y: 3
+  _Z: 3
+  _minAttackDistance: 1000
   _searchArea: {fileID: 4618062664336187529}
-  _searchRadius: 100
+  _searchRadius: 50
   _red: 1
   _green: 0
   _blue: 0
+  _hasBattleTarget: 0
   _hasMovementTarget: 0

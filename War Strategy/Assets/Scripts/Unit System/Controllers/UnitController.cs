@@ -79,6 +79,25 @@ public class UnitController : MonoBehaviour
                 }
             }
         }
+        else if (hitInfo.transform.gameObject.GetComponent<Building>())
+        {
+            Building targetBuilding = hitInfo.transform.gameObject.GetComponent<Building>();
+
+            if (targetBuilding.CurrentBuildingTeamGroup == TeamGroup.Blue)
+            {
+                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                {
+                    CreateBattleTask(targetBuilding.transform);
+                }
+            }
+            else if (targetBuilding.CurrentBuildingTeamGroup == TeamGroup.Red)
+            {
+                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                {
+                    CreateBattleTask(targetBuilding.transform);
+                }
+            }
+        }
         else
         {
             Transform movementTarget = hitInfo.transform;
@@ -88,7 +107,6 @@ public class UnitController : MonoBehaviour
                 CreateMovementTask(hitInfo);
             }
         }
-
     }
 
     private void CreateBattleTask(Transform battleTarget)
