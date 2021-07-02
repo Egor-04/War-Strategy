@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
 {
-    private Unit _currentUnit;
+    [SerializeField] private Unit _currentUnit;
 
     private UnitSelect _unitSelect;
 

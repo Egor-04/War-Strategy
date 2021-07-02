@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum TeamGroup { Blue, Red }
+public enum TeamGroup {Blue, Red}
 public class Unit : MonoBehaviour, IUnitSelected
 {
     [Header("Info")]

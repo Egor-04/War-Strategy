@@ -60,7 +60,6 @@ public class UnitController : MonoBehaviour
         if (hitInfo.transform.gameObject.GetComponent<Unit>())
         {
             Unit targetUnit = hitInfo.transform.gameObject.GetComponent<Unit>();
-            //Build targetBuild = hitInfo.transform.gameObject.GetComponent<Build>();
             if (targetUnit)
             {
                 if (targetUnit.CurrentTeamGroup == TeamGroup.Blue)
