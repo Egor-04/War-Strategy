@@ -140,7 +140,7 @@ public class AttackBehaviour : MonoBehaviour
                 float randomPositionZ = Random.Range(battleTarget.position.z + _Z, battleTarget.position.z - _Z);
 
                 Instantiate(_hitEffect, new Vector3(randomPositionX, randomPositionY, randomPositionZ), Quaternion.identity);
-                Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlash.transform.rotation);
+                Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlashSapwn.rotation);
                 AudioSource source = Instantiate(_source, transform.position, Quaternion.identity);
                 source.clip = _shotSound;
                 source.Play();

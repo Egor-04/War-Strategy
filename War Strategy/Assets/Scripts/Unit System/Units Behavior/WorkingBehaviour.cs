@@ -5,13 +5,14 @@ using UnityEngine;
 public class WorkingBehaviour : MonoBehaviour
 {
     [Header("Collected Resources")]
-    public float CollectedResourcesCount;
+    public float CollectedCrystalsCount;
+    public float CollectedGasCount;
     
     [Header("Work Target (Point A)")]
-    [SerializeField] private Transform _workTarget;
+    [SerializeField] private Transform _resourceTarget;
 
     [Header("Comand Center (Point B)")]
-    [SerializeField] private Transform _comandCenter;
+    [SerializeField] private Transform _ÒomandCenterDeliveryPoint;
 
     [Header("Find Resource Search Area")]
     [SerializeField] private Transform _searchArea;
@@ -26,61 +27,82 @@ public class WorkingBehaviour : MonoBehaviour
     [Header("Work Time")]
     [SerializeField] private float _workTime = 8f;
 
+    [Header("Delivery Time")]
+    [SerializeField] private float _loadResourcesTime = 5f;
+
     [Header("Gizmos Color")]
     [SerializeField] private float _red = 0f, _green = 1f, _blue = 0f;
     
     private UnitMovement _unitMovement;
-    private float _currentworkTime;
-    private bool _maxResourcesCollected;
+    [SerializeField] private float _currentWorkTime;
+    private Transform _cachedResourceTarget;
 
     private void Start()
     {
+        _currentWorkTime = 8f;
         _unitMovement = GetComponent<UnitMovement>();
-        //_comandCenter = FindObjectOfType<ComandCenter>().transform;
+
+        // Õ‡‰Ó ‰ÂÎ‡Ú¸ ÚÓ„‰‡ ÔÓ‚ÂÍÛ Í‡ÍÓÈ ÍÓÏ‡Ì‰˚ ‡·Ó˜ËÈ Ë ÚÓ„‰‡ ÔËÒ‚‡Ë‚‡Ú¸ ÂÏÛ Â„Ó ·‡ÁÛ
+        _ÒomandCenterDeliveryPoint = FindObjectOfType<ComandCenter>().transform;
     }
 
     private void Update()
     {
-        _currentworkTime -= Time.deltaTime;
+        Work();
     }
 
-    public void CollectThisResourceTarget(Transform workTarget)
+    public void CollectThisResourceTarget(Transform resourceTarget)
     {
-        _workTarget = workTarget;
+        _resourceTarget = resourceTarget;
+        _cachedResourceTarget = resourceTarget;
 
-        if (_workTarget)
-        {
-            _unitMovement.SetResourceTarget(workTarget, _minWorkDistance, _toolDamageForce);  
-        }
+        _unitMovement.SetResourceTarget(resourceTarget, _minWorkDistance, _toolDamageForce);
+        Debug.Log("I Selected Resource Target");
     }
 
     public void Work()
     {
-        Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _radius);
-
-        if (_currentworkTime <= 0f)
+        if (_resourceTarget)
         {
-            _currentworkTime = 0f;
+            Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _radius);
 
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].transform.gameObject.GetComponent<ResourceSource>())
                 {
-                    ResourceSource takedResource = colliders[i].transform.gameObject.GetComponent<ResourceSource>();
+                    ResourceSource findedResource = colliders[i].transform.gameObject.GetComponent<ResourceSource>();
 
-                    if (takedResource)
+                    if (findedResource)
                     {
-                        takedResource.GetCrystal(_toolDamageForce, this);
-                        _currentworkTime = _workTime;
+                        Debug.Log("Im Find Resources");
+                        _currentWorkTime -= Time.deltaTime;
+                        
+                        findedResource.GetCrystal(_toolDamageForce, GetComponent<WorkingBehaviour>());
+                            
+                        if (_currentWorkTime <= 0f)
+                        {
+                            _currentWorkTime = 0f;
+                            FinishedWork();
+                            _currentWorkTime = _workTime;
+                        }
                     }
                 }
             }
         }
     }
 
-    public void MoveToComandCenter()
+    public void FinishedWork()
     {
+        _resourceTarget = null;
+        _unitMovement.SetComandCenterTarget(_ÒomandCenterDeliveryPoint, CollectedCrystalsCount, CollectedGasCount);
+    }
 
+    public void ResourcesDelivered()
+    {
+        CollectedCrystalsCount -= CollectedCrystalsCount;
+        CollectedGasCount -= CollectedGasCount;
+        _unitMovement.ResourceTarget = _cachedResourceTarget;
+        _ÒomandCenterDeliveryPoint = null;
     }
 
     private void OnDrawGizmos()

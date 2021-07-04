@@ -8,7 +8,7 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] private float _distance;
 
     [Header("Nav Mesh Agent")]
-    public NavMeshAgent NavMeshAgent;
+    [SerializeField] private NavMeshAgent _navMeshAgent;
 
     [Header("Movement Target")]
     public Transform MovementTarget;
@@ -24,23 +24,30 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] private float _minWorkDistance;
     [SerializeField] private int _toolDamageForce;
 
+    [Header("Comand Center")]
+    [SerializeField] private Transform ComandCenterDeliveryPoint;
+    [SerializeField] private float _minComandCenterDistance;
+
+    [Header("Collected Resources")]
+    [SerializeField] private float _collectedCrystalsCount;
+    [SerializeField] private float _collectedGasCount;
+
     private AttackBehaviour _attackBehavour;
     private WorkingBehaviour _workingBehaviour;
 
     private void Start()
     {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         _attackBehavour = GetComponent<AttackBehaviour>();
-
         _workingBehaviour = GetComponent<WorkingBehaviour>();
     }
 
     private void Update()
     {
-        NavMeshAgent = GetComponent<NavMeshAgent>();
-
         MoveToTarget();
-        AttackTarget();
+        MoveToBattleTarget();
         MoveToResourceTarget();
+        MoveToComandCenter();
     }
 
     public void SetMovementTarget(Transform movementTarget)
@@ -54,8 +61,6 @@ public class UnitMovement : MonoBehaviour
         BattleTarget = battleTarget;
         _minAttackDistance = minAttackDistance;
         _damageForce = damageForce;
-
-        AttackTarget();
     }
 
     public void SetResourceTarget(Transform resourceTarget, float minWorkDistance, int toolDamageForce) // CollectThisResourceTarget ===> MoveToResourceTarget ===> Work ===> GetCrystal
@@ -64,8 +69,6 @@ public class UnitMovement : MonoBehaviour
         ResourceTarget = resourceTarget;
         _minWorkDistance = minWorkDistance;
         _toolDamageForce = toolDamageForce;
-
-        MoveToResourceTarget();
     }
 
     private void MoveToResourceTarget()
@@ -77,21 +80,58 @@ public class UnitMovement : MonoBehaviour
 
             if (currentResourceTargetDistance > _minWorkDistance)
             {
-                NavMeshAgent.enabled = true;
+                _navMeshAgent.enabled = true;
                 transform.LookAt(ResourceTarget);
-                NavMeshAgent.SetDestination(ResourceTarget.position);
+                _navMeshAgent.SetDestination(ResourceTarget.position);
                 transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
 
             if (currentResourceTargetDistance <= _minWorkDistance)
             {
-                NavMeshAgent.enabled = false;
+                _navMeshAgent.enabled = false;
+                transform.LookAt(ResourceTarget);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
                 _workingBehaviour.Work();
             }
         }
     }
 
-    private void AttackTarget()
+    public void SetComandCenterTarget(Transform comandCenterDileveryPoint, float collectedCrystalsCount, float collectedGasCount)
+    {
+        ComandCenterDeliveryPoint = comandCenterDileveryPoint;
+        _collectedCrystalsCount = collectedCrystalsCount;
+        _collectedGasCount = collectedGasCount;
+    }
+
+    private void MoveToComandCenter()
+    {
+        if (ComandCenterDeliveryPoint)
+        {
+            ResourceTarget = null;
+
+            float currentDistanceToComandCenter = Vector3.SqrMagnitude(ComandCenterDeliveryPoint.position - transform.position);
+            _distance = currentDistanceToComandCenter;
+            
+            if (currentDistanceToComandCenter > _minComandCenterDistance)
+            {
+                _navMeshAgent.enabled = true;
+                transform.LookAt(ComandCenterDeliveryPoint);
+                _navMeshAgent.SetDestination(ComandCenterDeliveryPoint.position);
+                Debug.Log("I Move to Comand Center");
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+            }
+            else if (currentDistanceToComandCenter <= _minComandCenterDistance)
+            {
+                Debug.Log("I Near Comand Center");
+                _navMeshAgent.enabled = false;
+                ComandCenter comandCenter = ComandCenterDeliveryPoint.gameObject.GetComponent<ComandCenter>();
+                comandCenter.GiveResourcesToComandCenter(_collectedCrystalsCount, _collectedGasCount);
+                _workingBehaviour.ResourcesDelivered();
+            }
+        }
+    }
+
+    private void MoveToBattleTarget()
     {
         if (BattleTarget)
         {
@@ -102,15 +142,18 @@ public class UnitMovement : MonoBehaviour
 
             if (currentTargetDistance > _minAttackDistance)
             {
-                NavMeshAgent.enabled = true;
+                _navMeshAgent.enabled = true;
                 transform.LookAt(BattleTarget);
-                NavMeshAgent.SetDestination(BattleTarget.position);
+                _navMeshAgent.SetDestination(BattleTarget.position);
                 transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
+
             if (currentTargetDistance <= _minAttackDistance)
             {
-                NavMeshAgent.enabled = false;
+                _navMeshAgent.enabled = false;
+                transform.LookAt(BattleTarget);
                 _attackBehavour.AttackNearbyTarget(BattleTarget);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
         }
         else
@@ -131,21 +174,22 @@ public class UnitMovement : MonoBehaviour
         if (MovementTarget)
         {
             BattleTarget = null;
+            ComandCenterDeliveryPoint = null;
 
             float currentTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
             _distance = currentTargetDistance;
 
             if (currentTargetDistance >= 20f)
             {
-                NavMeshAgent.enabled = true;
+                _navMeshAgent.enabled = true;
                 transform.LookAt(MovementTarget);
-                NavMeshAgent.SetDestination(MovementTarget.position);
+                _navMeshAgent.SetDestination(MovementTarget.position);
                 transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
             else
             {
                 MovementTarget = null;
-                NavMeshAgent.enabled = false;
+                _navMeshAgent.enabled = false;
             }
         }
     }

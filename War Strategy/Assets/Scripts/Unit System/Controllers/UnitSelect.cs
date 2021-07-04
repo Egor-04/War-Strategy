@@ -62,9 +62,33 @@ public class UnitSelect : MonoBehaviour
 
     public void GiveWorkTask(Transform workTarget)
     {
-        for (int i = 0; i < SelectedBlueUnits.Count; i++)
+        if (TeamGroupUnderControll == TeamGroupControll.Blue)
         {
-            SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
+            for (int i = 0; i < SelectedBlueUnits.Count; i++)
+            {
+                if (SelectedBlueUnits[i] != null)
+                {
+                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
+                }
+                else
+                {
+                    RemoveBlueUnit(SelectedBlueUnits[i]);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            {
+                if (SelectedRedUnits[i] != null)
+                {
+                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
+                }
+                else
+                {
+                    RemoveRedUnit(SelectedRedUnits[i]);
+                }
+            }
         }
     }
 

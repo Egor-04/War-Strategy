@@ -8,14 +8,8 @@ public class ResourceSource : MonoBehaviour
     [Header("Resource Count")]
     [SerializeField] int _resourceCount;
 
-    [Header("Interval")]
-    [SerializeField] private float _interval = 1f;
-
-    private float _currentInterval;
-
     private void Update()
     {
-        _currentInterval -= Time.deltaTime;
         ChangeState();
     }
 
@@ -29,14 +23,8 @@ public class ResourceSource : MonoBehaviour
 
     public void GetCrystal(int toolDamageForce, WorkingBehaviour workingBehaviour)
     {
-        if (_currentInterval <= 0f)
-        {
-            _currentInterval = 0f;
-            
-            _resourceCount -= toolDamageForce;
-            workingBehaviour.CollectedResourcesCount += toolDamageForce;
-
-            _currentInterval = _interval;
-        }
+        Debug.Log("Im Getting");
+        _resourceCount -= toolDamageForce;
+        workingBehaviour.CollectedCrystalsCount += toolDamageForce;
     }
 }
