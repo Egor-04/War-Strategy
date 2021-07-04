@@ -91,14 +91,18 @@ public class UnitMovement : MonoBehaviour
                 _navMeshAgent.enabled = false;
                 transform.LookAt(ResourceTarget);
                 transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
-                _workingBehaviour.Work();
             }
+        }
+        else
+        {
+            ClearResourceTarget();
         }
     }
 
-    public void SetComandCenterTarget(Transform comandCenterDileveryPoint, float collectedCrystalsCount, float collectedGasCount)
+    public void SetComandCenterTarget(Transform comandCenterDileveryPoint, float minComandCenterDistance, float collectedCrystalsCount, float collectedGasCount)
     {
         ComandCenterDeliveryPoint = comandCenterDileveryPoint;
+        _minComandCenterDistance = minComandCenterDistance;
         _collectedCrystalsCount = collectedCrystalsCount;
         _collectedGasCount = collectedGasCount;
     }
@@ -120,7 +124,8 @@ public class UnitMovement : MonoBehaviour
                 Debug.Log("I Move to Comand Center");
                 transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
-            else if (currentDistanceToComandCenter <= _minComandCenterDistance)
+
+            if (currentDistanceToComandCenter <= _minComandCenterDistance)
             {
                 Debug.Log("I Near Comand Center");
                 _navMeshAgent.enabled = false;
@@ -167,6 +172,13 @@ public class UnitMovement : MonoBehaviour
         BattleTarget = null;
         _minAttackDistance = 0f;
         _damageForce = 0f;
+    }
+
+    private void ClearResourceTarget()
+    {
+        ResourceTarget = null;
+        _minWorkDistance = 0f;
+        _toolDamageForce = 0;
     }
 
     private void MoveToTarget()

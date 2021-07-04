@@ -13,6 +13,7 @@ public class WorkingBehaviour : MonoBehaviour
 
     [Header("Comand Center (Point B)")]
     [SerializeField] private Transform _ñomandCenterDeliveryPoint;
+    [SerializeField] private float _minComandCeneterDistance;
 
     [Header("Find Resource Search Area")]
     [SerializeField] private Transform _searchArea;
@@ -43,7 +44,7 @@ public class WorkingBehaviour : MonoBehaviour
         _unitMovement = GetComponent<UnitMovement>();
 
         // Íàäî äåëàòü òîãäà ïğîâåğêó êàêîé êîìàíäû ğàáî÷èé è òîãäà ïğèñâàèâàòü åìó åãî áàçó
-        _ñomandCenterDeliveryPoint = FindObjectOfType<ComandCenter>().transform;
+        //_ñomandCenterDeliveryPoint = FindObjectOfType<ComandCenter>().transform;
     }
 
     private void Update()
@@ -94,7 +95,7 @@ public class WorkingBehaviour : MonoBehaviour
     public void FinishedWork()
     {
         _resourceTarget = null;
-        _unitMovement.SetComandCenterTarget(_ñomandCenterDeliveryPoint, CollectedCrystalsCount, CollectedGasCount);
+        _unitMovement.SetComandCenterTarget(_ñomandCenterDeliveryPoint, _minComandCeneterDistance, CollectedCrystalsCount, CollectedGasCount);
     }
 
     public void ResourcesDelivered()

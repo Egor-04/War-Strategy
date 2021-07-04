@@ -1519,6 +1519,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _craftMenu: {fileID: 0}
   _resourcesBalance: {fileID: 0}
+--- !u!4 &1011653502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 304452277721139898, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+  m_PrefabInstance: {fileID: 8616533292431198696}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1022411114
 GameObject:
   m_ObjectHideFlags: 0
@@ -3875,16 +3880,28 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: _searchArea
+      value: 
+      objectReference: {fileID: 728003556}
+    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: _minWorkDistance
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: _minComandCeneterDistance
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: "_\u0441omandCenterDeliveryPoint"
+      value: 
+      objectReference: {fileID: 1011653502}
     - target: {fileID: 8081065422094788043, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: _minWorkDistance
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8081065422094788043, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: _minComandCenterDistance
-      value: 600
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
@@ -3911,9 +3928,21 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -2.3510838
       objectReference: {fileID: 0}
+    - target: {fileID: 304452276893617474, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452277518920244, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 304452277721139845, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
       propertyPath: m_Name
       value: Blue Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452277721139845, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 304452277721139898, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
       propertyPath: m_RootOrder
@@ -3957,6 +3986,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 304452277721139898, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452277847589336, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452277949508298, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452277981879887, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452278048121625, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452278426608175, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304452278575917879, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616533292648123520, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616533293344092253, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616533294167458290, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
