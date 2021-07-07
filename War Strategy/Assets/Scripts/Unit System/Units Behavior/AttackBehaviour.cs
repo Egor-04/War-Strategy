@@ -39,9 +39,6 @@ public class AttackBehaviour : MonoBehaviour
     [Header("Gizmos Color")]
     [SerializeField] private float _red = 1f, _green = 0f, _blue = 0f;
 
-    [SerializeField] private bool _hasBattleTarget;
-    [SerializeField] private bool _hasMovementTarget;
-
     private float _currentTimeInterval;
 
     private Unit _currentUnit;
@@ -61,102 +58,101 @@ public class AttackBehaviour : MonoBehaviour
         {
             _currentDistance = Vector3.SqrMagnitude(_enemyTarget.position - transform.position);
         }
-
-        CheckMovementTargets();
-        CheckBattleTarget();
+        
         FindNearbyEnemies();
+        AttackNearbyTarget();
     }
-
-    private void CheckMovementTargets()
-    {
-        if (_unitMovement.MovementTarget)
-        {
-            _hasMovementTarget = true;
-        }
-        else
-        {
-            _hasMovementTarget = false;
-        }
-    }
-
-    private void CheckBattleTarget()
-    {
-        if (_unitMovement.BattleTarget)
-        {
-            _hasBattleTarget = true;
-        }
-        else
-        {
-            _hasBattleTarget = false;
-        }
-    }
-
+    
     private void FindNearbyEnemies()
     {
-        Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _searchRadius);
-
-        for (int i = 0; i < colliders.Length; i++)
+        if (!_unitMovement.MovementTarget)
         {
-            if (colliders[i].GetComponent<Unit>())
-            {
-                if (colliders[i].GetComponent<Unit>().CurrentTeamGroup != _currentUnit.CurrentTeamGroup)
-                {
-                    FollowTarget(colliders[i].transform);
-                }
-            }
+            //if (!_enemyTarget)
+            //{
+                Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _searchRadius);
 
-            if (colliders[i].GetComponent<Building>())
-            {
-                if (colliders[i].GetComponent<Building>().CurrentBuildingTeamGroup != _currentUnit.CurrentTeamGroup)
+                for (int i = 0; i < colliders.Length; i++)
                 {
-                    FollowTarget(colliders[i].transform);
+                    if (colliders[i].GetComponent<Unit>() || colliders[i].GetComponent<Building>())
+                    {
+                        if (colliders[i].GetComponent<Unit>())
+                        {
+                            if (colliders[i].GetComponent<Unit>().CurrentTeamGroup != _currentUnit.CurrentTeamGroup)
+                            {
+                                FollowTarget(colliders[i].transform);
+                            }
+                        }
+                        else if (colliders[i].GetComponent<Building>())
+                        {
+                            if (colliders[i].GetComponent<Building>().CurrentBuildingTeamGroup != _currentUnit.CurrentTeamGroup)
+                            {
+                                FollowTarget(colliders[i].transform);
+                            }
+                        }
+                    }
                 }
-            }
+            //}
         }
     }
 
     public void FollowTarget(Transform currentTarget)
     {
-        if (!_hasMovementTarget && !_hasBattleTarget)
+        if (currentTarget.gameObject.GetComponent<Unit>() || currentTarget.gameObject.GetComponent<Building>())
         {
             _unitMovement.SetBattleTarget(currentTarget, _minAttackDistance, _damageForce);
         }
-        else
-        {
-            return;
-        }
     }
 
-    public void AttackNearbyTarget(Transform battleTarget)
+    public void SetNearbyBattleTarget(Transform battleTarget)
     {
-        if (!_hasMovementTarget)
+        _enemyTarget = battleTarget;
+    }
+
+    public void AttackNearbyTarget()
+    {
+        if (!_unitMovement.MovementTarget)
         {
-            if (_currentTimeInterval <= 0f)
+            if (_enemyTarget)
             {
-                _currentTimeInterval = 0f;
+                float currentNearbyTarget = Vector3.SqrMagnitude(_enemyTarget.position - transform.position);
 
-                float randomPositionX = Random.Range(battleTarget.position.x + _X, battleTarget.position.x - _X);
-                float randomPositionY = Random.Range(battleTarget.position.y + _Y, battleTarget.position.y - _Y);
-                float randomPositionZ = Random.Range(battleTarget.position.z + _Z, battleTarget.position.z - _Z);
+                if (_enemyTarget.gameObject.GetComponent<ObjectHealth>())
+                {
+                    if (currentNearbyTarget <= _minAttackDistance)
+                    {
+                        if (_currentTimeInterval <= 0f)
+                        {
+                            _currentTimeInterval = 0f;
 
-                Instantiate(_hitEffect, new Vector3(randomPositionX, randomPositionY, randomPositionZ), Quaternion.identity);
-                Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlashSapwn.rotation);
-                AudioSource source = Instantiate(_source, transform.position, Quaternion.identity);
-                source.clip = _shotSound;
-                source.Play();
+                            float randomPositionX = Random.Range(_enemyTarget.position.x + _X, _enemyTarget.position.x - _X);
+                            float randomPositionY = Random.Range(_enemyTarget.position.y + _Y, _enemyTarget.position.y - _Y);
+                            float randomPositionZ = Random.Range(_enemyTarget.position.z + _Z, _enemyTarget.position.z - _Z);
 
-                ObjectHealth targetHealth = battleTarget.gameObject.GetComponent<ObjectHealth>();
-                targetHealth.DamageHit(_damageForce);
-                _currentTimeInterval = _shootTimeInterval;
+                            Instantiate(_hitEffect, new Vector3(randomPositionX, randomPositionY, randomPositionZ), Quaternion.identity);
+                            Instantiate(_muzzleFlash, _muzzleFlashSapwn.position, _muzzleFlashSapwn.rotation);
+                            AudioSource source = Instantiate(_source, transform.position, Quaternion.identity);
+                            source.clip = _shotSound;
+                            source.Play();
+
+                            ObjectHealth targetHealth = _enemyTarget.gameObject.GetComponent<ObjectHealth>();
+                            targetHealth.DamageHit(_damageForce);
+                            _currentTimeInterval = _shootTimeInterval;
+                        }
+                    }
+                }
             }
         }
     }
 
     public void AttackThisTarget(Transform currentBattleTarget) // Срабатывает один раз, надо исправить
     {
-        _enemyTarget = currentBattleTarget;
+        Debug.Log("Select Target For Attack " + currentBattleTarget.name);
+        if (currentBattleTarget.gameObject.GetComponent<Unit>() || currentBattleTarget.gameObject.GetComponent<Building>())
+        {
+            _enemyTarget = currentBattleTarget;
+        }
+
         _unitMovement.SetBattleTarget(currentBattleTarget, _minAttackDistance, _damageForce);
-        Debug.Log("Select Target For Attack");
     }
 
     private void OnDrawGizmos()

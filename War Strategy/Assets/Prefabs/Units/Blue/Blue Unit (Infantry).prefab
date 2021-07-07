@@ -556,9 +556,9 @@ GameObject:
   - component: {fileID: 6734673326471771273}
   - component: {fileID: 6518851299997693812}
   - component: {fileID: 2144964987}
-  - component: {fileID: 2144964988}
   - component: {fileID: 1559805445}
   - component: {fileID: 1559805446}
+  - component: {fileID: 2144964988}
   - component: {fileID: 1559805447}
   m_Layer: 0
   m_Name: Blue Unit (Infantry)
@@ -574,7 +574,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6518851299997693809}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 16.68, y: 3.85, z: 58.82}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
@@ -702,31 +702,6 @@ MonoBehaviour:
   IsSelected: 0
   UnitMovement: {fileID: 0}
   UnitBehaviour: {fileID: 0}
---- !u!114 &2144964988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6518851299997693809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 30
-  _distance: 0
-  _navMeshAgent: {fileID: 0}
-  MovementTarget: {fileID: 0}
-  BattleTarget: {fileID: 0}
-  _minAttackDistance: 0
-  _damageForce: 0
-  ResourceTarget: {fileID: 0}
-  _minWorkDistance: 0
-  _toolDamageForce: 0
-  ComandCenterDileveryPoint: {fileID: 0}
-  _minComandCenterDistance: 0
-  _currentDistanceToComandCenter: 0
 --- !u!114 &1559805445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,6 +732,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentBehaviourType: 0
+--- !u!114 &2144964988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518851299997693809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 30
+  _distance: 0
+  _navMeshAgent: {fileID: 0}
+  MovementTarget: {fileID: 0}
+  _minMovementTargetDistance: 30
+  BattleTarget: {fileID: 0}
+  _minAttackDistance: 0
+  _damageForce: 0
+  ResourceTarget: {fileID: 0}
+  _minWorkDistance: 0
+  _toolDamageForce: 0
+  ComandCenterDeliveryPoint: {fileID: 0}
+  _minComandCenterDistance: 0
+  _collectedCrystalsCount: 0
+  _collectedGasCount: 0
 --- !u!114 &1559805447
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,11 @@ public class WorkingBehaviour : MonoBehaviour
     [Header("Collected Resources")]
     public float CollectedCrystalsCount;
     public float CollectedGasCount;
-    
+
+    [Header("Resources View")]
+    [SerializeField] private GameObject _crystals;
+    [SerializeField] private GameObject _gasBarrel;
+
     [Header("Work Target (Point A)")]
     [SerializeField] private Transform _resourceTarget;
 
@@ -28,53 +32,111 @@ public class WorkingBehaviour : MonoBehaviour
     [Header("Work Time")]
     [SerializeField] private float _workTime = 8f;
 
-    [Header("Delivery Time")]
-    [SerializeField] private float _loadResourcesTime = 5f;
-
     [Header("Gizmos Color")]
     [SerializeField] private float _red = 0f, _green = 1f, _blue = 0f;
-    
+
+    private Unit _currentUnit;
     private UnitMovement _unitMovement;
     [SerializeField] private float _currentWorkTime;
     private Transform _cachedResourceTarget;
 
     private void Start()
     {
+        _currentUnit = GetComponent<Unit>();
         _currentWorkTime = 8f;
         _unitMovement = GetComponent<UnitMovement>();
 
         // Õ‡‰Ó ‰ÂÎ‡Ú¸ ÚÓ„‰‡ ÔÓ‚ÂÍÛ Í‡ÍÓÈ ÍÓÏ‡Ì‰˚ ‡·Ó˜ËÈ Ë ÚÓ„‰‡ ÔËÒ‚‡Ë‚‡Ú¸ ÂÏÛ Â„Ó ·‡ÁÛ
-        //_ÒomandCenterDeliveryPoint = FindObjectOfType<ComandCenter>().transform;
+        if (_currentUnit.CurrentTeamGroup == TeamGroup.Blue)
+        {
+            ComandCenter findedComandCenter = FindObjectOfType<ComandCenter>();
+            
+            if (findedComandCenter.CurrentTeamGroup == TeamGroup.Blue)
+            {
+                _ÒomandCenterDeliveryPoint = findedComandCenter.transform;
+            }
+        }
+        else if (_currentUnit.CurrentTeamGroup == TeamGroup.Red)
+        {
+            ComandCenter findedComandCenter = FindObjectOfType<ComandCenter>();
+
+            if (findedComandCenter.CurrentTeamGroup == TeamGroup.Red)
+            {
+                _ÒomandCenterDeliveryPoint = findedComandCenter.transform;
+            }
+        }
     }
 
     private void Update()
     {
         Work();
+        CheckHaveResources();
     }
 
-    public void CollectThisResourceTarget(Transform resourceTarget)
+    public void DefineTypeTarget(Transform target)
     {
-        _resourceTarget = resourceTarget;
-        _cachedResourceTarget = resourceTarget;
+        if (target.gameObject.GetComponent<ResourceSource>())
+        {
+            CollectThisResourceTarget(target);
+        }
+        else if (target.gameObject.GetComponent<ComandCenter>())
+        {
+            DeliveryResourcesToComandCenter();
+        }
+    }
 
-        _unitMovement.SetResourceTarget(resourceTarget, _minWorkDistance, _toolDamageForce);
-        Debug.Log("I Selected Resource Target");
+    public void DeliveryResourcesToComandCenter()
+    {
+        FinishedWork();
+    }
+
+    private void CollectThisResourceTarget(Transform resourceTarget)
+    {
+        if (resourceTarget.gameObject.GetComponent<ResourceSource>())
+        {
+            Debug.Log("I Selected Resource Target ===> " + resourceTarget);
+            _resourceTarget = resourceTarget;
+            _cachedResourceTarget = resourceTarget;
+            _unitMovement.SetResourceTarget(resourceTarget, _minWorkDistance, _toolDamageForce);
+        }
+    }
+
+    public void CheckHaveResources()
+    {
+        if (CollectedCrystalsCount > 0f)
+        {
+            _crystals.SetActive(true);
+        }
+        else
+        {
+            _crystals.SetActive(false);
+        }
+
+        if (CollectedGasCount > 0f)
+        {
+            _gasBarrel.SetActive(true);
+        }
+        else
+        {
+            _gasBarrel.SetActive(false);
+        }
     }
 
     public void Work()
     {
         if (_resourceTarget)
         {
-            Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _radius);
-
-            for (int i = 0; i < colliders.Length; i++)
+            if (_resourceTarget.gameObject.GetComponent<ResourceSource>())
             {
-                if (colliders[i].transform.gameObject.GetComponent<ResourceSource>())
+                Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _radius);
+
+                for (int i = 0; i < colliders.Length; i++)
                 {
                     ResourceSource findedResource = colliders[i].transform.gameObject.GetComponent<ResourceSource>();
 
                     if (findedResource)
                     {
+                        Debug.Log(_resourceTarget);
                         Debug.Log("Im Find Resources");
                         _currentWorkTime -= Time.deltaTime;
                         
@@ -89,6 +151,18 @@ public class WorkingBehaviour : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                CheckCollectedResources();
+            }
+        }
+    }
+
+    public void CheckCollectedResources()
+    {
+        if (CollectedCrystalsCount > 0f || CollectedGasCount > 0f)
+        {
+            FinishedWork();
         }
     }
 
@@ -100,10 +174,11 @@ public class WorkingBehaviour : MonoBehaviour
 
     public void ResourcesDelivered()
     {
+        Debug.Log("I Delivered Resources. I go to ==> " + _cachedResourceTarget);
         CollectedCrystalsCount -= CollectedCrystalsCount;
         CollectedGasCount -= CollectedGasCount;
-        _unitMovement.ResourceTarget = _cachedResourceTarget;
-        _ÒomandCenterDeliveryPoint = null;
+        _unitMovement.MovementTarget = _cachedResourceTarget;
+        _resourceTarget = _cachedResourceTarget;
     }
 
     private void OnDrawGizmos()

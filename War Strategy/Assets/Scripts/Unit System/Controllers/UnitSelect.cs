@@ -28,6 +28,7 @@ public class UnitSelect : MonoBehaviour
 
     private bool _noPlace;
 
+    // Behaviour Tasks
     public void GiveBattleTask(Transform battleTarget)
     {
         if (TeamGroupUnderControll == TeamGroupControll.Blue)
@@ -83,6 +84,38 @@ public class UnitSelect : MonoBehaviour
                 if (SelectedRedUnits[i] != null)
                 {
                     SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
+                }
+                else
+                {
+                    RemoveRedUnit(SelectedRedUnits[i]);
+                }
+            }
+        }
+    }
+
+    public void GiveUnitDeliveryTask(Transform comandCenter)
+    {
+        if (TeamGroupUnderControll == TeamGroupControll.Blue)
+        {
+            for (int i = 0; i < SelectedBlueUnits.Count; i++)
+            {
+                if (SelectedBlueUnits[i] != null)
+                {
+                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(comandCenter);
+                }
+                else
+                {
+                    RemoveBlueUnit(SelectedBlueUnits[i]);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            {
+                if (SelectedRedUnits[i] != null)
+                {
+                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(comandCenter);
                 }
                 else
                 {

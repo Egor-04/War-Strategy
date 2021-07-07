@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ComandCenter : MonoBehaviour
 {
+    [Header("Team Group")]
+    public TeamGroup CurrentTeamGroup;
+
     [Header("UI")]
     [SerializeField] private GameObject _craftMenu;
 

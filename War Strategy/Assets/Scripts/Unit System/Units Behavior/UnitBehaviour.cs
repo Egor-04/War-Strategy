@@ -22,7 +22,7 @@ public class UnitBehaviour : MonoBehaviour
         }
         else if (CurrentBehaviourType == BehaviourType.Workring)
         {
-            _workingBehaviour.CollectThisResourceTarget(target);
+            _workingBehaviour.DefineTypeTarget(target);
         }
     }
 }

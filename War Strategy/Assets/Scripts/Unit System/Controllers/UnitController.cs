@@ -59,68 +59,23 @@ public class UnitController : MonoBehaviour
     {
         if (hitInfo.transform.gameObject.GetComponent<Unit>())
         {
-            Unit targetUnit = hitInfo.transform.gameObject.GetComponent<Unit>();
-            if (targetUnit)
-            {
-                if (targetUnit.CurrentTeamGroup == TeamGroup.Blue)
-                {
-                    for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
-                    {
-                        CreateBattleTask(targetUnit.transform);
-                    }
-                }
-                else if (targetUnit.CurrentTeamGroup == TeamGroup.Red)
-                {
-                    for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
-                    {
-                        CreateBattleTask(targetUnit.transform);
-                    }
-                }
-            }
+            Unit unitTarget = hitInfo.transform.gameObject.GetComponent<Unit>();
+
+            UnitBattleTarget(unitTarget);
         }
         else if (hitInfo.transform.gameObject.GetComponent<Building>())
         {
-            Building targetBuilding = hitInfo.transform.gameObject.GetComponent<Building>();
+            Building buildingTarget = hitInfo.transform.gameObject.GetComponent<Building>();
 
-            if (targetBuilding.CurrentBuildingTeamGroup == TeamGroup.Blue)
-            {
-                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
-                {
-                    CreateBattleTask(targetBuilding.transform);
-                }
-            }
-            else if (targetBuilding.CurrentBuildingTeamGroup == TeamGroup.Red)
-            {
-                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
-                {
-                    CreateBattleTask(targetBuilding.transform);
-                }
-            }
+            BuildingBattleTarget(buildingTarget);
+
+            DeliveryResourceTarget(buildingTarget);
         }
         else if (hitInfo.transform.gameObject.GetComponent<ResourceSource>())
         {
-            ResourceSource targetResource = hitInfo.transform.gameObject.GetComponent<ResourceSource>();
+            ResourceSource resourceTarget = hitInfo.transform.gameObject.GetComponent<ResourceSource>();
 
-            if (targetResource.CurrentResourceType == ResourceType.Crystal)
-            {
-                if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
-                {
-                    for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
-                    {
-                        CreateWorkingTask(targetResource.transform);
-                    }
-                }
-                else
-                {
-                    if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Red)
-                    {
-                        for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
-                        {
-                            CreateWorkingTask(targetResource.transform);
-                        }
-                    }
-                }
-            }
+            ResourceTarget(resourceTarget);
         }
         else if (hitInfo.transform)
         {
@@ -131,6 +86,102 @@ public class UnitController : MonoBehaviour
                 CreateMovementTask(hitInfo);
             }
         }
+    }
+
+    // Targets
+
+    private void UnitBattleTarget(Unit unitTarget)
+    {
+        if (unitTarget)
+        {
+            if (unitTarget.CurrentTeamGroup == TeamGroup.Blue)
+            {
+                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                {
+                    CreateBattleTask(unitTarget.transform);
+                }
+            }
+            else if (unitTarget.CurrentTeamGroup == TeamGroup.Red)
+            {
+                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                {
+                    CreateBattleTask(unitTarget.transform);
+                }
+            }
+        }
+    }
+
+    private void BuildingBattleTarget(Building buildingTarget)
+    {
+        if (buildingTarget.CurrentBuildingTeamGroup == TeamGroup.Blue)
+        {
+            for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+            {
+                CreateBattleTask(buildingTarget.transform);
+            }
+        }
+        else if (buildingTarget.CurrentBuildingTeamGroup == TeamGroup.Red)
+        {
+            for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+            {
+                CreateBattleTask(buildingTarget.transform);
+            }
+        }
+    }
+    
+    private void ResourceTarget(ResourceSource resourceTarget)
+    {
+        if (resourceTarget.CurrentResourceType == ResourceType.Crystal)
+        {
+            if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
+            {
+                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                {
+                    CreateWorkingTask(resourceTarget.transform);
+                }
+            }
+            else
+            {
+                if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Red)
+                {
+                    for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                    {
+                        CreateWorkingTask(resourceTarget.transform);
+                    }
+                }
+            }
+        }
+    }
+
+    private void DeliveryResourceTarget(Building buildingTarget)
+    {
+        if (buildingTarget.GetComponent<ComandCenter>())
+        {
+            if (buildingTarget.CurrentBuildingTeamGroup == TeamGroup.Blue)
+            {
+                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                {
+                    CreateDeliveryTask(buildingTarget.transform);
+                }
+            }
+            else if (buildingTarget.CurrentBuildingTeamGroup == TeamGroup.Red)
+            {
+                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                {
+                    CreateDeliveryTask(buildingTarget.transform);
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    // Tasks
+    private void CreateDeliveryTask(Transform comandCenter)
+    {
+        _unitSelect.GiveUnitDeliveryTask(comandCenter);
     }
 
     private void CreateBattleTask(Transform battleTarget)
