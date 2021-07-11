@@ -21,10 +21,18 @@ public class ResourceSource : MonoBehaviour
         }
     }
 
-    public void GetCrystal(int toolDamageForce, WorkingBehaviour workingBehaviour)
+    public void GetResource(int toolDamageForce, WorkingBehaviour workingBehaviour)
     {
         Debug.Log("Im Getting");
         _resourceCount -= toolDamageForce;
-        workingBehaviour.CollectedCrystalsCount += toolDamageForce;
+
+        if (CurrentResourceType == ResourceType.Crystal)
+        {
+            workingBehaviour.CollectedCrystalsCount += toolDamageForce;
+        }
+        else if (CurrentResourceType == ResourceType.Gas)
+        {
+            workingBehaviour.CollectedGasCount += toolDamageForce;
+        }
     }
 }

@@ -357,14 +357,12 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 0}
   MovementTarget: {fileID: 0}
   _minMovementTargetDistance: 30
-  BattleTarget: {fileID: 0}
   _minAttackDistance: 0
   _damageForce: 0
-  ResourceTarget: {fileID: 0}
   _minWorkDistance: 0
   _toolDamageForce: 0
-  ComandCenterDeliveryPoint: {fileID: 0}
   _minComandCenterDistance: 0
+  _minFixDistance: 0
   _collectedCrystalsCount: 0
   _collectedGasCount: 0
 --- !u!114 &915818542
@@ -379,7 +377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectHealth: 100
+  CurrentHealthType: 0
+  MaxObjectHealth: 200
+  CurrentObjectHealth: 200
   _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
   _killSound:
   - {fileID: 8300000, guid: da40a377245df1044b52e28f45931f14, type: 3}
@@ -414,16 +414,21 @@ MonoBehaviour:
   _gasBarrel: {fileID: 3747068308750997354}
   _resourceTarget: {fileID: 0}
   "_\u0441omandCenterDeliveryPoint": {fileID: 0}
-  _minComandCeneterDistance: 700
+  _minComandCeneterDistance: 750
+  _fixTarget: {fileID: 0}
+  _fixCount: 0
   _searchArea: {fileID: 2206326008369135077}
   _radius: 8
   _toolDamageForce: 1
+  _fixTime: 2
+  _toolFixCount: 1
   _minWorkDistance: 150
   _workTime: 8
   _red: 0
   _green: 1
   _blue: 0
   _currentWorkTime: 0
+  _currentFixTime: 0
 --- !u!1 &2206326008690363934
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,14 @@
 using UnityEngine;
 
+public enum HealthType {Humaniod, Mechanic}
 public class ObjectHealth : MonoBehaviour
 {
-    [SerializeField] private float _objectHealth;
+    [Header("Health Type")]
+    public HealthType CurrentHealthType;
+
+    [Header("Health")]
+    public float MaxObjectHealth;
+    public float CurrentObjectHealth;
 
     [Header("Die Sound or Destroy Sound")]
     [SerializeField] private AudioSource _source;
@@ -15,9 +21,9 @@ public class ObjectHealth : MonoBehaviour
 
     private void CheckHealth()
     {
-        if (_objectHealth <= 0f)
+        if (CurrentObjectHealth <= 0f)
         {
-            _objectHealth = 0f;
+            CurrentObjectHealth = 0f;
 
             AudioSource source = Instantiate(_source, transform.position, Quaternion.identity);
             source.PlayOneShot(_killSound[Random.Range(0, _killSound.Length)]);
@@ -27,6 +33,11 @@ public class ObjectHealth : MonoBehaviour
 
     public void DamageHit(float damageForce)
     {
-        _objectHealth -= damageForce;
+        CurrentObjectHealth -= damageForce;
+    }
+
+    public void FixObject(float fixCount)
+    {
+        CurrentObjectHealth += fixCount;
     }
 }

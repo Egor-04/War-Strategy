@@ -60,15 +60,15 @@ public class AttackBehaviour : MonoBehaviour
         }
         
         FindNearbyEnemies();
-        AttackNearbyTarget();
+        AttackTarget();
     }
     
     private void FindNearbyEnemies()
     {
         if (!_unitMovement.MovementTarget)
         {
-            //if (!_enemyTarget)
-            //{
+            if (!_enemyTarget)
+            {
                 Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _searchRadius);
 
                 for (int i = 0; i < colliders.Length; i++)
@@ -91,7 +91,7 @@ public class AttackBehaviour : MonoBehaviour
                         }
                     }
                 }
-            //}
+            }
         }
     }
 
@@ -108,7 +108,7 @@ public class AttackBehaviour : MonoBehaviour
         _enemyTarget = battleTarget;
     }
 
-    public void AttackNearbyTarget()
+    public void AttackTarget()
     {
         if (!_unitMovement.MovementTarget)
         {
@@ -139,8 +139,16 @@ public class AttackBehaviour : MonoBehaviour
                             _currentTimeInterval = _shootTimeInterval;
                         }
                     }
+                    else
+                    {
+                        FollowTarget(_enemyTarget);
+                    }
                 }
             }
+        }
+        else
+        {
+            _enemyTarget = null;
         }
     }
 

@@ -718,15 +718,15 @@ MonoBehaviour:
   _distance: 0
   _navMeshAgent: {fileID: 0}
   MovementTarget: {fileID: 0}
-  BattleTarget: {fileID: 0}
+  _minMovementTargetDistance: 100
   _minAttackDistance: 0
   _damageForce: 0
-  ResourceTarget: {fileID: 0}
   _minWorkDistance: 0
   _toolDamageForce: 0
-  ComandCenterDileveryPoint: {fileID: 0}
   _minComandCenterDistance: 0
-  _currentDistanceToComandCenter: 0
+  _minFixDistance: 0
+  _collectedCrystalsCount: 0
+  _collectedGasCount: 0
 --- !u!114 &714081207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +739,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectHealth: 100
+  CurrentHealthType: 0
+  MaxObjectHealth: 100
+  CurrentObjectHealth: 100
   _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
   _killSound:
   - {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
@@ -783,9 +785,7 @@ MonoBehaviour:
   _Z: 3
   _minAttackDistance: 1000
   _searchArea: {fileID: 4618062664336187529}
-  _searchRadius: 50
+  _searchRadius: 70
   _red: 1
   _green: 0
   _blue: 0
-  _hasBattleTarget: 0
-  _hasMovementTarget: 0

@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentBuildingTeamGroup: 0
   BuildingID: 0
+  _objectHealth: {fileID: 0}
 --- !u!114 &276480414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectHealth: 2000
+  CurrentHealthType: 0
+  MaxObjectHealth: 5000
+  CurrentObjectHealth: 5000
   _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
   _killSound:
   - {fileID: 0}

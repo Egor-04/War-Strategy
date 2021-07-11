@@ -290,6 +290,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
     - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -514,6 +522,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
     - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -615,6 +631,14 @@ PrefabInstance:
       propertyPath: _killSound
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
@@ -810,6 +834,14 @@ PrefabInstance:
       propertyPath: _killSound
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
@@ -1969,6 +2001,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
     - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2511,6 +2551,14 @@ PrefabInstance:
       propertyPath: _killSound
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
@@ -3276,6 +3324,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
     - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
       propertyPath: _killSound.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -3467,6 +3523,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 288137488, guid: e2583f989fc3e48498de04ba2768c989, type: 3}
+      propertyPath: CurrentHealthType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6300694174247513277, guid: e2583f989fc3e48498de04ba2768c989, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -3652,6 +3712,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 137601239, guid: ab9b987108503bb4b896c47aff57c418, type: 3}
+      propertyPath: CurrentHealthType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 137601241, guid: ab9b987108503bb4b896c47aff57c418, type: 3}
       propertyPath: m_Radius
       value: 16.029684
@@ -3773,6 +3837,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1511327588}
     m_Modifications:
+    - target: {fileID: 915818542, guid: 12eb4d877d49f9d478f3ac4f6ce399e0, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 915818542, guid: 12eb4d877d49f9d478f3ac4f6ce399e0, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2206326008369135077, guid: 12eb4d877d49f9d478f3ac4f6ce399e0, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3830,6 +3902,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1511327588}
     m_Modifications:
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 714081207, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4618062664336187529, guid: 351f8b2f9bd88864b844df0ef379f8b0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3984,13 +4064,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 60078928}
     m_Modifications:
-    - target: {fileID: 1559805447, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
-      propertyPath: _minAttackDistance
-      value: 1000
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 2144964988, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
-      propertyPath: _minMovementTargetDistance
-      value: 16
+    - target: {fileID: 1559805445, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6518851299997693809, guid: 3bdf697860dc3e44aac2441b586dbff4, type: 3}
       propertyPath: m_Name
@@ -4054,6 +4134,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 242832629, guid: 15e427e226d17744dbd05f319357110c, type: 3}
+      propertyPath: CurrentHealthType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6149243068412956591, guid: 15e427e226d17744dbd05f319357110c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -4159,6 +4243,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 60078928}
     m_Modifications:
+    - target: {fileID: 728003547, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: MaxObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 728003547, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2011389192669089173, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: m_Name
       value: Blue Unit (Worker)
@@ -4208,14 +4300,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
-      propertyPath: _radius
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
-      propertyPath: _minWorkDistance
-      value: 130
-      objectReference: {fileID: 0}
-    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: "_\u0441omandCenterDeliveryPoint"
       value: 
       objectReference: {fileID: 1011653502}
@@ -4233,6 +4317,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 276480414, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: CurrentHealthType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 276480415, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
       propertyPath: m_Radius
       value: 16.370106

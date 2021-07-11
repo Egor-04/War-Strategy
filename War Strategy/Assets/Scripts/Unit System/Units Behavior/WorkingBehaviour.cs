@@ -19,12 +19,22 @@ public class WorkingBehaviour : MonoBehaviour
     [SerializeField] private Transform _сomandCenterDeliveryPoint;
     [SerializeField] private float _minComandCeneterDistance;
 
+    [Header("Target for Fix")]
+    [SerializeField] private Transform _fixTarget;
+    [SerializeField] private float _fixCount;
+
     [Header("Find Resource Search Area")]
     [SerializeField] private Transform _searchArea;
     [SerializeField] private float _radius;
 
     [Header("Tool Damage")]
     [SerializeField] private int _toolDamageForce = 1;
+
+    [Header("Tool Fix Time")]
+    [SerializeField] private float _fixTime = 2f;
+
+    [Header("Tool Fix Count")]
+    [SerializeField] private float _toolFixCount = 1f;
 
     [Header("Work Distance")]
     [SerializeField] private float _minWorkDistance = 100f;
@@ -35,15 +45,18 @@ public class WorkingBehaviour : MonoBehaviour
     [Header("Gizmos Color")]
     [SerializeField] private float _red = 0f, _green = 1f, _blue = 0f;
 
+    [SerializeField] private float _currentWorkTime;
+    [SerializeField] private float _currentFixTime;
     private Unit _currentUnit;
     private UnitMovement _unitMovement;
-    [SerializeField] private float _currentWorkTime;
     private Transform _cachedResourceTarget;
 
     private void Start()
     {
+        _currentFixTime = _fixTime;
+        _currentWorkTime = _workTime;
+
         _currentUnit = GetComponent<Unit>();
-        _currentWorkTime = 8f;
         _unitMovement = GetComponent<UnitMovement>();
 
         // Надо делать тогда проверку какой команды рабочий и тогда присваивать ему его базу
@@ -70,6 +83,7 @@ public class WorkingBehaviour : MonoBehaviour
     private void Update()
     {
         Work();
+        FixTargetNow();
         CheckHaveResources();
     }
 
@@ -83,6 +97,57 @@ public class WorkingBehaviour : MonoBehaviour
         {
             DeliveryResourcesToComandCenter();
         }
+        else if (target.gameObject.GetComponent<ObjectHealth>())
+        {
+            ObjectHealth objectHealth = target.gameObject.GetComponent<ObjectHealth>();
+
+            if (objectHealth.CurrentHealthType == HealthType.Mechanic)
+            {
+                GoFixTarget(target);
+            }
+        }
+    }
+
+    public void GoFixTarget(Transform fixTarget)
+    {
+        _fixTarget = fixTarget;
+        _unitMovement.SetFixTarget(fixTarget);
+    }
+
+    public void FixTargetNow()
+    {
+        if (!_unitMovement.MovementTarget)
+        {
+            if (_fixTarget)
+            {
+                ObjectHealth currentObjectHealth = _fixTarget.transform.GetComponent<ObjectHealth>();
+
+                if (currentObjectHealth)
+                {
+                    _currentFixTime -= Time.deltaTime;
+
+                    if (currentObjectHealth.CurrentObjectHealth < currentObjectHealth.MaxObjectHealth)
+                    {
+                        
+                        if (_currentFixTime <= 0f) 
+                        { 
+                            currentObjectHealth.FixObject(_fixCount);
+                            _currentFixTime = _fixTime;
+                        }
+                    }
+                    else
+                    {
+                        FinishedFix();
+                    }
+                }
+            }
+        }
+    }
+
+    public void FinishedFix()
+    {
+        Debug.Log("I finished Fix");
+        _fixTarget = null;
     }
 
     public void DeliveryResourcesToComandCenter()
@@ -140,7 +205,7 @@ public class WorkingBehaviour : MonoBehaviour
                         Debug.Log("Im Find Resources");
                         _currentWorkTime -= Time.deltaTime;
                         
-                        findedResource.GetCrystal(_toolDamageForce, GetComponent<WorkingBehaviour>());
+                        findedResource.GetResource(_toolDamageForce, GetComponent<WorkingBehaviour>());
                             
                         if (_currentWorkTime <= 0f)
                         {
@@ -151,10 +216,10 @@ public class WorkingBehaviour : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                CheckCollectedResources();
-            }
+        }
+        else
+        {
+            CheckCollectedResources();
         }
     }
 
@@ -168,6 +233,7 @@ public class WorkingBehaviour : MonoBehaviour
 
     public void FinishedWork()
     {
+        Debug.Log("I finished Work");
         _resourceTarget = null;
         _unitMovement.SetComandCenterTarget(_сomandCenterDeliveryPoint, _minComandCeneterDistance, CollectedCrystalsCount, CollectedGasCount);
     }

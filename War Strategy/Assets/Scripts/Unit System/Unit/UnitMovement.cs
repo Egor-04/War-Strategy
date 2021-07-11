@@ -26,6 +26,9 @@ public class UnitMovement : MonoBehaviour
     [Header("Comand Center")]
     [SerializeField] private float _minComandCenterDistance;
 
+    [Header("Fix Target")]
+    [SerializeField] private float _minFixDistance;
+
     [Header("Collected Resources")]
     [SerializeField] private float _collectedCrystalsCount;
     [SerializeField] private float _collectedGasCount;
@@ -46,6 +49,7 @@ public class UnitMovement : MonoBehaviour
         MoveToBattleTarget();
         MoveToResourceTarget();
         MoveToComandCenter();
+        MoveToFixTarget();
     }
 
     // Нужно попробовать дать юнитам одну цель которая будет меняться взависимости от выбранной цели
@@ -56,6 +60,7 @@ public class UnitMovement : MonoBehaviour
 
     public void SetBattleTarget(Transform battleTarget, float minAttackDistance, float damageForce)
     {
+        Debug.Log("I Set battle Target");
         MovementTarget = battleTarget;
         _minAttackDistance = minAttackDistance;
         _damageForce = damageForce;
@@ -75,6 +80,11 @@ public class UnitMovement : MonoBehaviour
         _minComandCenterDistance = minComandCenterDistance;
         _collectedCrystalsCount = collectedCrystalsCount;
         _collectedGasCount = collectedGasCount;
+    }
+
+    public void SetFixTarget(Transform fixTarget)
+    {
+        MovementTarget = fixTarget;
     }
 
     private void MoveToResourceTarget()
@@ -164,6 +174,34 @@ public class UnitMovement : MonoBehaviour
                     _navMeshAgent.enabled = false;
                     transform.LookAt(MovementTarget);
                     _attackBehavour.SetNearbyBattleTarget(MovementTarget);// Здесь из за услови стреляет один раз а не постоянно, потому что тут цель зануляется
+                    transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                    MovementTarget = null;
+                }
+            }
+        }
+    }
+
+    private void MoveToFixTarget()
+    {
+        if (MovementTarget)
+        {
+            if (MovementTarget.GetComponent<ObjectHealth>())
+            {
+                float currentTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
+                _distance = currentTargetDistance;
+
+                if (currentTargetDistance > _minFixDistance)
+                {
+                    _navMeshAgent.enabled = true;
+                    transform.LookAt(MovementTarget);
+                    _navMeshAgent.SetDestination(MovementTarget.position);
+                    transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                }
+
+                if (currentTargetDistance <= _minFixDistance)
+                {
+                    _navMeshAgent.enabled = false;
+                    transform.LookAt(MovementTarget);
                     transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
                     MovementTarget = null;
                 }

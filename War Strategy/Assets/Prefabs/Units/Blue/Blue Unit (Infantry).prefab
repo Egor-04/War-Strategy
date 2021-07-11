@@ -574,7 +574,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6518851299997693809}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 16.68, y: 3.85, z: 58.82}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
@@ -714,7 +714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectHealth: 100
+  CurrentHealthType: 0
+  MaxObjectHealth: 100
+  CurrentObjectHealth: 100
   _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
   _killSound:
   - {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
@@ -748,15 +750,13 @@ MonoBehaviour:
   _distance: 0
   _navMeshAgent: {fileID: 0}
   MovementTarget: {fileID: 0}
-  _minMovementTargetDistance: 30
-  BattleTarget: {fileID: 0}
+  _minMovementTargetDistance: 16
   _minAttackDistance: 0
   _damageForce: 0
-  ResourceTarget: {fileID: 0}
   _minWorkDistance: 0
   _toolDamageForce: 0
-  ComandCenterDeliveryPoint: {fileID: 0}
   _minComandCenterDistance: 0
+  _minFixDistance: 0
   _collectedCrystalsCount: 0
   _collectedGasCount: 0
 --- !u!114 &1559805447
@@ -785,9 +785,7 @@ MonoBehaviour:
   _Z: 3
   _minAttackDistance: 1000
   _searchArea: {fileID: 6518851299997693813}
-  _searchRadius: 50
+  _searchRadius: 70
   _red: 1
   _green: 0
   _blue: 0
-  _hasBattleTarget: 0
-  _hasMovementTarget: 0
