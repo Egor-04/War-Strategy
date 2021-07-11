@@ -21,7 +21,9 @@ public class WorkingBehaviour : MonoBehaviour
 
     [Header("Target for Fix")]
     [SerializeField] private Transform _fixTarget;
-    [SerializeField] private float _fixCount;
+    [SerializeField] private float _fixTime = 2f;
+    [SerializeField] private float _fixCount = 1;
+    [SerializeField] private float _minFixDistance = 700f;
 
     [Header("Find Resource Search Area")]
     [SerializeField] private Transform _searchArea;
@@ -29,12 +31,6 @@ public class WorkingBehaviour : MonoBehaviour
 
     [Header("Tool Damage")]
     [SerializeField] private int _toolDamageForce = 1;
-
-    [Header("Tool Fix Time")]
-    [SerializeField] private float _fixTime = 2f;
-
-    [Header("Tool Fix Count")]
-    [SerializeField] private float _toolFixCount = 1f;
 
     [Header("Work Distance")]
     [SerializeField] private float _minWorkDistance = 100f;
@@ -47,6 +43,7 @@ public class WorkingBehaviour : MonoBehaviour
 
     [SerializeField] private float _currentWorkTime;
     [SerializeField] private float _currentFixTime;
+    [SerializeField] private float _currentFixDistance;
     private Unit _currentUnit;
     private UnitMovement _unitMovement;
     private Transform _cachedResourceTarget;
@@ -95,15 +92,24 @@ public class WorkingBehaviour : MonoBehaviour
         }
         else if (target.gameObject.GetComponent<ComandCenter>())
         {
+            NeedFix(target);
             DeliveryResourcesToComandCenter();
         }
-        else if (target.gameObject.GetComponent<ObjectHealth>())
+        else if (target.GetComponent<ObjectHealth>())
         {
-            ObjectHealth objectHealth = target.gameObject.GetComponent<ObjectHealth>();
+            NeedFix(target);
+        }
+    }
 
+    private void NeedFix(Transform fixTarget)
+    {
+        ObjectHealth objectHealth = fixTarget.gameObject.GetComponent<ObjectHealth>();
+
+        if (objectHealth.CurrentObjectHealth < objectHealth.MaxObjectHealth)
+        {
             if (objectHealth.CurrentHealthType == HealthType.Mechanic)
             {
-                GoFixTarget(target);
+                GoFixTarget(fixTarget);
             }
         }
     }
@@ -120,24 +126,29 @@ public class WorkingBehaviour : MonoBehaviour
         {
             if (_fixTarget)
             {
+                float currentFixDistance = Vector3.SqrMagnitude(_fixTarget.position - transform.position);
+                _currentFixDistance = currentFixDistance;
+
                 ObjectHealth currentObjectHealth = _fixTarget.transform.GetComponent<ObjectHealth>();
 
                 if (currentObjectHealth)
                 {
-                    _currentFixTime -= Time.deltaTime;
+                    if (currentFixDistance <= _minFixDistance)
+                    {
+                        _currentFixTime -= Time.deltaTime;
 
-                    if (currentObjectHealth.CurrentObjectHealth < currentObjectHealth.MaxObjectHealth)
-                    {
-                        
-                        if (_currentFixTime <= 0f) 
-                        { 
-                            currentObjectHealth.FixObject(_fixCount);
-                            _currentFixTime = _fixTime;
+                        if (currentObjectHealth.CurrentObjectHealth < currentObjectHealth.MaxObjectHealth)
+                        {
+                            if (_currentFixTime <= 0f) 
+                            { 
+                                currentObjectHealth.FixObject(_fixCount);
+                                _currentFixTime = _fixTime;
+                            }
                         }
-                    }
-                    else
-                    {
-                        FinishedFix();
+                        else
+                        {
+                            FinishedFix();
+                        }
                     }
                 }
             }

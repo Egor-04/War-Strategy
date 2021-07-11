@@ -61,11 +61,15 @@ public class UnitController : MonoBehaviour
         {
             Unit unitTarget = hitInfo.transform.gameObject.GetComponent<Unit>();
 
+            NeedFix(hitInfo.transform);
+
             UnitBattleTarget(unitTarget);
         }
         else if (hitInfo.transform.gameObject.GetComponent<Building>())
         {
             Building buildingTarget = hitInfo.transform.gameObject.GetComponent<Building>();
+
+            NeedFix(hitInfo.transform);
 
             BuildingBattleTarget(buildingTarget);
 
@@ -178,7 +182,50 @@ public class UnitController : MonoBehaviour
         }
     }
 
+    private void NeedFix(Transform fixTarget)
+    {
+        ObjectHealth objectHealth = fixTarget.GetComponent<ObjectHealth>();
+
+        if (objectHealth.CurrentObjectHealth < objectHealth.MaxObjectHealth)
+        {
+            FixTarget(objectHealth);
+        }
+    }
+
+    private void FixTarget(ObjectHealth fixTarget)
+    {
+        if (fixTarget.GetComponent<ObjectHealth>())
+        {
+            ObjectHealth objectHealth = fixTarget.GetComponent<ObjectHealth>();
+
+            if (objectHealth.CurrentTeamGroup == TeamGroup.Blue)
+            {
+                for (int i = 0; i < _unitSelect.SelectedBlueUnits.Count; i++)
+                {
+                    CreateFixTask(fixTarget.transform);
+                }
+            }
+            else if (objectHealth.CurrentTeamGroup == TeamGroup.Red)
+            {
+                for (int i = 0; i < _unitSelect.SelectedRedUnits.Count; i++)
+                {
+                    CreateFixTask(fixTarget.transform);
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
     // Tasks
+
+    private void CreateFixTask(Transform fixTarget)
+    {
+        _unitSelect.GiveFixTask(fixTarget);
+    }
+
     private void CreateDeliveryTask(Transform comandCenter)
     {
         _unitSelect.GiveUnitDeliveryTask(comandCenter);

@@ -3713,6 +3713,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 137601239, guid: ab9b987108503bb4b896c47aff57c418, type: 3}
+      propertyPath: CurrentTeamGroup
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 137601239, guid: ab9b987108503bb4b896c47aff57c418, type: 3}
       propertyPath: CurrentHealthType
       value: 1
       objectReference: {fileID: 0}
@@ -4135,6 +4139,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 242832629, guid: 15e427e226d17744dbd05f319357110c, type: 3}
+      propertyPath: CurrentTeamGroup
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 242832629, guid: 15e427e226d17744dbd05f319357110c, type: 3}
       propertyPath: CurrentHealthType
       value: 1
       objectReference: {fileID: 0}
@@ -4300,6 +4308,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: _fixTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: _fixCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
+      propertyPath: _minFixDistance
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788556022644127741, guid: a36dd0b3aee2b8d4a8288c43fca44a4e, type: 3}
       propertyPath: "_\u0441omandCenterDeliveryPoint"
       value: 
       objectReference: {fileID: 1011653502}
@@ -4320,6 +4340,10 @@ PrefabInstance:
     - target: {fileID: 276480414, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
       propertyPath: CurrentHealthType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 276480414, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
+      propertyPath: CurrentObjectHealth
+      value: 4320
       objectReference: {fileID: 0}
     - target: {fileID: 276480415, guid: 5836ce80e5af9ab4d9bdd7fc63331372, type: 3}
       propertyPath: m_Radius

@@ -61,6 +61,30 @@ public class UnitSelect : MonoBehaviour
         }
     }
 
+    public void GiveFixTask(Transform fixTarget)
+    {
+        if (TeamGroupUnderControll == TeamGroupControll.Blue)
+        {
+            for (int i = 0; i < SelectedBlueUnits.Count; i++)
+            {
+                if (SelectedBlueUnits[i] != null)
+                {
+                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(fixTarget);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            {
+                if (SelectedRedUnits[i] != null)
+                {
+                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(fixTarget);
+                }
+            }
+        }
+    }
+
     public void GiveWorkTask(Transform workTarget)
     {
         if (TeamGroupUnderControll == TeamGroupControll.Blue)

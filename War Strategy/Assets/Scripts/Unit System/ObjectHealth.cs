@@ -6,6 +6,9 @@ public class ObjectHealth : MonoBehaviour
     [Header("Health Type")]
     public HealthType CurrentHealthType;
 
+    [Header("Team Group Type")]
+    public TeamGroup CurrentTeamGroup;
+
     [Header("Health")]
     public float MaxObjectHealth;
     public float CurrentObjectHealth;
@@ -38,6 +41,7 @@ public class ObjectHealth : MonoBehaviour
 
     public void FixObject(float fixCount)
     {
+        Debug.Log("Fixing");
         CurrentObjectHealth += fixCount;
     }
 }
