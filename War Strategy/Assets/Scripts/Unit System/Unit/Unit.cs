@@ -18,7 +18,12 @@ public class Unit : MonoBehaviour, IUnitSelected
     private int _minID = 1;
     private int _maxID = 1000;
 
+    [HideInInspector]
+    public float CurrentUnitHealth; 
+
     private UnitSelect _unitSelect;
+    private ObjectHealth _objectHealth;
+
 
     private void Start()
     {
@@ -26,6 +31,7 @@ public class Unit : MonoBehaviour, IUnitSelected
         UnitMovement = GetComponent<UnitMovement>();
         UnitBehaviour = GetComponent<UnitBehaviour>();
         _unitSelect = FindObjectOfType<UnitSelect>();
+        _objectHealth = GetComponent<ObjectHealth>();
     }
 
     private void OnMouseDown()
@@ -50,6 +56,26 @@ public class Unit : MonoBehaviour, IUnitSelected
                 {
                     _unitSelect.AddRedUnit(GetComponent<Unit>());
                 }
+            }
+        }
+    }
+
+    public void SetCurrentHealthvalue(float currentUnitHealth)
+    {
+        CurrentUnitHealth = currentUnitHealth;
+    }
+
+    public void RemoveUnitIcon()
+    {
+        if (CurrentUnitHealth <= _objectHealth.MaxObjectHealth)
+        {
+            if (CurrentTeamGroup == TeamGroup.Blue)
+            {
+                _unitSelect.RemoveBlueUnit(GetComponent<Unit>());
+            }
+            else
+            {
+                _unitSelect.RemoveRedUnit(GetComponent<Unit>());
             }
         }
     }

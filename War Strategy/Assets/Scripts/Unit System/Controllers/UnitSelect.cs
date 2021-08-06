@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -171,7 +170,7 @@ public class UnitSelect : MonoBehaviour
     private void ShowBlueUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
-        cell.transform.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
+        cell.transform.GetChild(2).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
         cell.GetComponent<UnitIcon>().SetCurrentUnit(selectedUnit);
         return;
     }
@@ -179,7 +178,7 @@ public class UnitSelect : MonoBehaviour
     private void ShowRedUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
-        cell.transform.GetChild(0).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
+        cell.transform.GetChild(2).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
         cell.GetComponent<UnitIcon>().SetCurrentUnit(selectedUnit);
         return;
     }
@@ -254,6 +253,7 @@ public class UnitSelect : MonoBehaviour
         {
             if (SelectedBlueUnits[i].UnitID == deselectedUnit.UnitID)
             {
+                Debug.Log("I Remove Blue Unit");
                 SelectedBlueUnits[i].IsSelected = false;
                 SelectedBlueUnits.RemoveAt(i);
                 return;
@@ -267,6 +267,7 @@ public class UnitSelect : MonoBehaviour
         {
             if (SelectedRedUnits[i].UnitID == deselectedUnit.UnitID)
             {
+                Debug.Log("I Remove Red Unit");
                 SelectedRedUnits[i].IsSelected = false;
                 SelectedRedUnits.RemoveAt(i);
                 return;

@@ -112,6 +112,10 @@ public class WorkingBehaviour : MonoBehaviour
                 GoFixTarget(fixTarget);
             }
         }
+        else
+        {
+            return;
+        }
     }
 
     public void GoFixTarget(Transform fixTarget)
@@ -135,10 +139,10 @@ public class WorkingBehaviour : MonoBehaviour
                 {
                     if (currentFixDistance <= _minFixDistance)
                     {
-                        _currentFixTime -= Time.deltaTime;
-
                         if (currentObjectHealth.CurrentObjectHealth < currentObjectHealth.MaxObjectHealth)
                         {
+                            _currentFixTime -= Time.deltaTime;
+
                             if (_currentFixTime <= 0f) 
                             { 
                                 currentObjectHealth.FixObject(_fixCount);
@@ -221,8 +225,8 @@ public class WorkingBehaviour : MonoBehaviour
                         if (_currentWorkTime <= 0f)
                         {
                             _currentWorkTime = 0f;
-                            FinishedWork();
                             _currentWorkTime = _workTime;
+                            FinishedWork();
                         }
                     }
                 }
@@ -238,6 +242,7 @@ public class WorkingBehaviour : MonoBehaviour
     {
         if (CollectedCrystalsCount > 0f || CollectedGasCount > 0f)
         {
+            _currentWorkTime = _workTime;
             FinishedWork();
         }
     }

@@ -5,9 +5,6 @@ public class ComandCenter : MonoBehaviour
     [Header("Team Group")]
     public TeamGroup CurrentTeamGroup;
 
-    [Header("UI")]
-    [SerializeField] private GameObject _craftMenu;
-
     [Header("Resources Balance")]
     [SerializeField] private ResourcesBalance _resourcesBalance;
 

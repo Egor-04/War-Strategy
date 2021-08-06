@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitController : MonoBehaviour
@@ -21,7 +19,7 @@ public class UnitController : MonoBehaviour
 
     private void Start()
     {
-        _camera = FindObjectOfType<Camera>();
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<Camera>();
         _unitSelect = GetComponent<UnitSelect>();
     }
 

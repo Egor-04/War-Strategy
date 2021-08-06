@@ -173,7 +173,7 @@ public class UnitMovement : MonoBehaviour
                 {
                     _navMeshAgent.enabled = false;
                     transform.LookAt(MovementTarget);
-                    _attackBehavour.SetNearbyBattleTarget(MovementTarget);// Здесь из за услови стреляет один раз а не постоянно, потому что тут цель зануляется
+                    _attackBehavour.SetNearbyBattleTarget(MovementTarget);
                     transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
                     MovementTarget = null;
                 }

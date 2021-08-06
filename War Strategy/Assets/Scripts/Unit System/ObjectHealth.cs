@@ -17,6 +17,16 @@ public class ObjectHealth : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip[] _killSound;
 
+    private Unit _currentUnit;
+
+    private void Start()
+    {
+        if (GetComponent<Unit>())
+        {
+            _currentUnit = GetComponent<Unit>();
+        }
+    }
+
     private void Update()
     {
         CheckHealth();
@@ -24,12 +34,18 @@ public class ObjectHealth : MonoBehaviour
 
     private void CheckHealth()
     {
+        if (_currentUnit)
+        {
+            _currentUnit.SetCurrentHealthvalue(CurrentObjectHealth);
+        }
+        
         if (CurrentObjectHealth <= 0f)
         {
             CurrentObjectHealth = 0f;
 
             AudioSource source = Instantiate(_source, transform.position, Quaternion.identity);
             source.PlayOneShot(_killSound[Random.Range(0, _killSound.Length)]);
+
             Destroy(gameObject);
         }
     }
@@ -41,7 +57,14 @@ public class ObjectHealth : MonoBehaviour
 
     public void FixObject(float fixCount)
     {
-        Debug.Log("Fixing");
-        CurrentObjectHealth += fixCount;
+        if (CurrentObjectHealth < MaxObjectHealth)
+        {
+            Debug.Log("Fixing");
+            CurrentObjectHealth += fixCount;
+        }
+        else if (CurrentObjectHealth >= MaxObjectHealth)
+        {
+            CurrentObjectHealth = MaxObjectHealth;
+        }
     }
 }
