@@ -7,9 +7,7 @@ public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
     [SerializeField] private Image _iconState;
     [SerializeField] private Unit _currentUnit;
     [SerializeField] private Color _color;
-    [SerializeField] private float _h = 0,
-                                   _s = 2,
-                                   _v = 1;
+    [SerializeField] private float _currentHealth;
 
     private UnitSelect _unitSelect;
 
@@ -26,8 +24,8 @@ public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
 
     private void CheckUnit()
     {
-        _h = _currentUnit.CurrentUnitHealth;
-        _iconState.color = _color;
+        _currentHealth = _currentUnit.CurrentUnitHealth;
+        _iconState.color = Color.Lerp(Color.red, Color.green, _currentHealth / 100);
 
         if (_currentUnit.CurrentUnitHealth <= 0f)
         {

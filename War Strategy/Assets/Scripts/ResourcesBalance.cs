@@ -4,12 +4,17 @@ using UnityEngine;
 public class ResourcesBalance : MonoBehaviour
 {
     [Header("Crystal Balance")]
-    [SerializeField] private float _crystalsCount;
+    public float _crystalsCount;
     [SerializeField] private Text _crystalsTextCount;
 
     [Header("Gas Balance")]
-    [SerializeField] private float _gasCount;
+    public float _gasCount;
     [SerializeField] private Text _gasTextCount;
+
+    [Header("Storage Space")]
+    public int _storageSpaceMaxCount = 200;
+    public int _storageSpaceCurrentCount = 0;
+    [SerializeField] private Text _storageSpaceCurrentCountText;
 
     public void AddResourcesToSystem(float crystalsCount, float gasCount)
     {
@@ -18,10 +23,5 @@ public class ResourcesBalance : MonoBehaviour
 
         _crystalsTextCount.text = _crystalsCount.ToString();
         _gasTextCount.text = _gasCount.ToString();
-    }
-
-    public void Pay()
-    {
-
     }
 }
