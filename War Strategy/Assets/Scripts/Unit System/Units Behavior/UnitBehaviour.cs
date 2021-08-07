@@ -14,15 +14,15 @@ public class UnitBehaviour : MonoBehaviour
         _workingBehaviour = GetComponent<WorkingBehaviour>();
     }
 
-    public void CurrentBehaviour(Transform target)
+    public void CurrentBehaviour(ObjectTarget objectTarget)
     {
         if (CurrentBehaviourType == BehaviourType.Attacking)
         {
-            _attackBehaviour.AttackThisTarget(target);
+            _attackBehaviour.AttackThisTarget(objectTarget);
         }
         else if (CurrentBehaviourType == BehaviourType.Workring)
         {
-            _workingBehaviour.DefineTypeTarget(target);
+            _workingBehaviour.DefineTypeTarget(objectTarget);
         }
     }
 }

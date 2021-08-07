@@ -52,7 +52,6 @@ public class UnitMovement : MonoBehaviour
         MoveToFixTarget();
     }
 
-    // Ќужно попробовать дать юнитам одну цель котора€ будет мен€тьс€ взависимости от выбранной цели
     public void SetMovementTarget(Transform movementTarget)
     {
         MovementTarget = movementTarget;
@@ -68,8 +67,8 @@ public class UnitMovement : MonoBehaviour
 
     public void SetResourceTarget(Transform resourceTarget, float minWorkDistance, int toolDamageForce) // CollectThisResourceTarget ===> MoveToResourceTarget ===> Work ===> GetCrystal
     {
-        MovementTarget = resourceTarget;
         Debug.Log("I Set Resource Target ===> " + resourceTarget);
+        MovementTarget = resourceTarget;
         _minWorkDistance = minWorkDistance;
         _toolDamageForce = toolDamageForce;
     }
@@ -91,23 +90,26 @@ public class UnitMovement : MonoBehaviour
     {
         if (MovementTarget)
         {
-            if (MovementTarget.GetComponent<ResourceSource>())
+            if (MovementTarget.gameObject.GetComponent<ObjectTarget>())
             {
-                float currentResourceTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
-                _distance = currentResourceTargetDistance;
+                if (MovementTarget.GetComponent<ObjectTarget>().CurrentObjectType == ObjectType.Resources)
+                {
+                    float currentResourceTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
+                    _distance = currentResourceTargetDistance;
 
-                if (currentResourceTargetDistance > _minWorkDistance)
-                {
-                    _navMeshAgent.enabled = true;
-                    transform.LookAt(MovementTarget);
-                    _navMeshAgent.SetDestination(MovementTarget.position);
-                    transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
-                }
-                else if (currentResourceTargetDistance <= _minWorkDistance)
-                {
-                    _navMeshAgent.enabled = false;
-                    transform.LookAt(MovementTarget);
-                    transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                    if (currentResourceTargetDistance > _minWorkDistance)
+                    {
+                        _navMeshAgent.enabled = true;
+                        transform.LookAt(MovementTarget);
+                        _navMeshAgent.SetDestination(MovementTarget.position);
+                        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                    }
+                    else if (currentResourceTargetDistance <= _minWorkDistance)
+                    {
+                        _navMeshAgent.enabled = false;
+                        transform.LookAt(MovementTarget);
+                        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                    }
                 }
             }
         }
@@ -156,26 +158,29 @@ public class UnitMovement : MonoBehaviour
     {
         if (MovementTarget)
         {
-            if (MovementTarget.GetComponent<Unit>() || MovementTarget.GetComponent<Building>())
+            if (MovementTarget.GetComponent<ObjectTarget>())
             {
-                float currentTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
-                _distance = currentTargetDistance;
-
-                if (currentTargetDistance > _minAttackDistance)
+                if (MovementTarget.GetComponent<ObjectTarget>().CurrentObjectType == ObjectType.Enemy)
                 {
-                    _navMeshAgent.enabled = true;
-                    transform.LookAt(MovementTarget);
-                    _navMeshAgent.SetDestination(MovementTarget.position);
-                    transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
-                }
+                    float currentTargetDistance = Vector3.SqrMagnitude(MovementTarget.position - transform.position);
+                    _distance = currentTargetDistance;
 
-                if (currentTargetDistance <= _minAttackDistance)
-                {
-                    _navMeshAgent.enabled = false;
-                    transform.LookAt(MovementTarget);
-                    _attackBehavour.SetNearbyBattleTarget(MovementTarget);
-                    transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
-                    MovementTarget = null;
+                    if (currentTargetDistance > _minAttackDistance)
+                    {
+                        _navMeshAgent.enabled = true;
+                        transform.LookAt(MovementTarget);
+                        _navMeshAgent.SetDestination(MovementTarget.position);
+                        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                    }
+
+                    if (currentTargetDistance <= _minAttackDistance)
+                    {
+                        _navMeshAgent.enabled = false;
+                        transform.LookAt(MovementTarget);
+                        _attackBehavour.SetNearbyBattleTarget(MovementTarget);
+                        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                        MovementTarget = null;
+                    }
                 }
             }
         }

@@ -218,7 +218,6 @@ GameObject:
   - component: {fileID: 2011389191205919127}
   - component: {fileID: 2011389191205919124}
   - component: {fileID: 2011389191205919125}
-  - component: {fileID: 2011389191205919126}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -289,19 +288,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2011389191205919126
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011389191205919120}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2011389191275674647
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +629,7 @@ GameObject:
   - component: {fileID: 728003547}
   - component: {fileID: 728003548}
   - component: {fileID: 6788556022644127741}
+  - component: {fileID: 6745134384754344109}
   m_Layer: 0
   m_Name: Blue Unit (Worker)
   m_TagString: Untagged
@@ -783,7 +770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dfed006d988bb4aa6f80c804d09fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentTeamGroup: 0
   UnitID: 2
   UnitIcon: {fileID: 21300000, guid: 88bf8dc7bec586d499afd39f07fb1648, type: 3}
   IsSelected: 0
@@ -828,7 +814,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealthType: 0
-  CurrentTeamGroup: 0
   MaxObjectHealth: 100
   CurrentObjectHealth: 100
   _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
@@ -881,6 +866,19 @@ MonoBehaviour:
   _currentWorkTime: 0
   _currentFixTime: 0
   _currentFixDistance: 0
+--- !u!114 &6745134384754344109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011389192669089173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07faa231d7df62745bbd97ed15eb899f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentObjectType: 0
 --- !u!1 &5367504717311400791
 GameObject:
   m_ObjectHideFlags: 0

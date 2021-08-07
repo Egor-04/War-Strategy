@@ -46,15 +46,7 @@ public class UnitIcon : MonoBehaviour, IPointerDownHandler, IUnitDeselected
 
     public void Deselect()
     {
-        if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
-        {
-            _unitSelect.RemoveBlueUnit(_currentUnit);
-            Destroy(gameObject);
-        }
-        else
-        {
-            _unitSelect.RemoveRedUnit(_currentUnit);
-            Destroy(gameObject);
-        }
+        _unitSelect.RemoveUnit(_currentUnit);
+        Destroy(gameObject);
     }
 }

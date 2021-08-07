@@ -2,24 +2,22 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public enum TeamGroupControll {Blue, Red}
 public class UnitSelect : MonoBehaviour
 {
-    [Header("Team Under Controll")]
-    public TeamGroupControll TeamGroupUnderControll;
+    public static UnitSelect StaticUnitSelect;
 
     [Header("Selected Groups")]
     public int _minSelectedUnits = 0;
     public int _maxSelectedUnits = 5;
-    
-    [Header("Units")]
-    public List<Unit> SelectedBlueUnits;
-    public List<Unit> SelectedRedUnits;
 
+    [Header("Movement Target Prefab")]
+    [SerializeField] Transform _movementTarget;
+
+    [Header("Units")]
+    public List<Unit> SelectedUnits;
 
     [Header("Buildings")]
-    public List<Building> _selectedBlueBuilds;
-    public List<Building> _selectedRedBuilds;
+    public List<Building> SelectedBuilds;
 
     [Header("UI")]
     [SerializeField] private GameObject _cellPrefab;
@@ -27,155 +25,106 @@ public class UnitSelect : MonoBehaviour
 
     private bool _noPlace;
 
-    // Behaviour Tasks
-    public void GiveBattleTask(Transform battleTarget)
+    private void Start()
     {
-        if (TeamGroupUnderControll == TeamGroupControll.Blue)
+        StaticUnitSelect = this;
+    }
+
+    public void DefineTaskType(RaycastHit hitinfo)
+    {
+        if (hitinfo.collider)
         {
-            for (int i = 0; i < SelectedBlueUnits.Count; i++)
+            CreateMovementTask(hitinfo);
+        }
+
+        if (hitinfo.collider.gameObject.GetComponent<ObjectTarget>())
+        {
+            ObjectTarget objectTarget = hitinfo.transform.gameObject.GetComponent<ObjectTarget>();
+
+            if (objectTarget.CurrentObjectType == ObjectType.Player)
             {
-                if (SelectedBlueUnits[i] != null)
+                for (int i = 0; i < SelectedUnits.Count; i++)
                 {
-                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
-                }
-                else
-                {
-                    RemoveBlueUnit(SelectedBlueUnits[i]);
+                    SelectedUnits[i].DefineBehaviourType(objectTarget);
                 }
             }
-        }
-        else
-        {
-            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            else if (objectTarget.CurrentObjectType == ObjectType.Enemy)
             {
-                if (SelectedRedUnits[i] != null)
+                for (int i = 0; i < SelectedUnits.Count; i++)
                 {
-                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(battleTarget);
+                    SelectedUnits[i].DefineBehaviourType(objectTarget);
                 }
-                else
+            }
+            else if (objectTarget.CurrentObjectType == ObjectType.Resources)
+            {
+                for (int i = 0; i < SelectedUnits.Count; i++)
                 {
-                    RemoveRedUnit(SelectedRedUnits[i]);
+                    SelectedUnits[i].DefineBehaviourType(objectTarget);
                 }
             }
         }
     }
 
-    public void GiveFixTask(Transform fixTarget)
+    // Task Creator
+    public void CreateMovementTask(RaycastHit hitInfo)
     {
-        if (TeamGroupUnderControll == TeamGroupControll.Blue)
-        {
-            for (int i = 0; i < SelectedBlueUnits.Count; i++)
-            {
-                if (SelectedBlueUnits[i] != null)
-                {
-                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(fixTarget);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < SelectedRedUnits.Count; i++)
-            {
-                if (SelectedRedUnits[i] != null)
-                {
-                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(fixTarget);
-                }
-            }
-        }
+        Transform movementTarget = Instantiate(_movementTarget, hitInfo.point, Quaternion.identity);
+        GiveUnitMovementTask(movementTarget);
     }
 
-    public void GiveWorkTask(Transform workTarget)
-    {
-        if (TeamGroupUnderControll == TeamGroupControll.Blue)
-        {
-            for (int i = 0; i < SelectedBlueUnits.Count; i++)
-            {
-                if (SelectedBlueUnits[i] != null)
-                {
-                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
-                }
-                else
-                {
-                    RemoveBlueUnit(SelectedBlueUnits[i]);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < SelectedRedUnits.Count; i++)
-            {
-                if (SelectedRedUnits[i] != null)
-                {
-                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
-                }
-                else
-                {
-                    RemoveRedUnit(SelectedRedUnits[i]);
-                }
-            }
-        }
-    }
-
-    public void GiveUnitDeliveryTask(Transform comandCenter)
-    {
-        if (TeamGroupUnderControll == TeamGroupControll.Blue)
-        {
-            for (int i = 0; i < SelectedBlueUnits.Count; i++)
-            {
-                if (SelectedBlueUnits[i] != null)
-                {
-                    SelectedBlueUnits[i].UnitBehaviour.CurrentBehaviour(comandCenter);
-                }
-                else
-                {
-                    RemoveBlueUnit(SelectedBlueUnits[i]);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < SelectedRedUnits.Count; i++)
-            {
-                if (SelectedRedUnits[i] != null)
-                {
-                    SelectedRedUnits[i].UnitBehaviour.CurrentBehaviour(comandCenter);
-                }
-                else
-                {
-                    RemoveRedUnit(SelectedRedUnits[i]);
-                }
-            }
-        }
-    }
-
+    // Giving Behaviour Tasks
     public void GiveUnitMovementTask(Transform movementTarget)
     {
-        if (TeamGroupUnderControll == TeamGroupControll.Blue)
+        for (int i = 0; i < SelectedUnits.Count; i++)
         {
-            for (int i = 0; i < SelectedBlueUnits.Count; i++)
-            {
-                SelectedBlueUnits[i].UnitMovement.SetMovementTarget(movementTarget);
-            }
+            SelectedUnits[i].UnitMovement.SetMovementTarget(movementTarget);
         }
-        else
+    }
+
+    public void GiveFixTask(ObjectTarget fixTarget)
+    {
+        for (int i = 0; i < SelectedUnits.Count; i++)
         {
-            for (int i = 0; i < SelectedRedUnits.Count; i++)
+            if (SelectedUnits[i] != null)
             {
-                SelectedRedUnits[i].UnitMovement.SetMovementTarget(movementTarget);
+                SelectedUnits[i].UnitBehaviour.CurrentBehaviour(fixTarget);
             }
         }
     }
+
+    public void GiveWorkTask(ObjectTarget workTarget)
+    {
+        for (int i = 0; i < SelectedUnits.Count; i++)
+        {
+            if (SelectedUnits[i] != null)
+            {
+                SelectedUnits[i].UnitBehaviour.CurrentBehaviour(workTarget);
+            }
+            else
+            {
+                RemoveUnit(SelectedUnits[i]);
+            }
+        }
+    }
+
+    public void GiveUnitDeliveryTask(ObjectTarget comandCenter)
+    {
+        for (int i = 0; i < SelectedUnits.Count; i++)
+        {
+            if (SelectedUnits[i] != null)
+            {
+                SelectedUnits[i].UnitBehaviour.CurrentBehaviour(comandCenter);
+            }
+            else
+            {
+                RemoveUnit(SelectedUnits[i]);
+            }
+        }
+    }
+
 
     // Отображение выбранных юнитов
-    private void ShowBlueUnitIcon(Unit selectedUnit)
-    {
-        GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
-        cell.transform.GetChild(2).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
-        cell.GetComponent<UnitIcon>().SetCurrentUnit(selectedUnit);
-        return;
-    }
-
-    private void ShowRedUnitIcon(Unit selectedUnit)
+    private void ShowUnitIcon(Unit selectedUnit)
     {
         GameObject cell = Instantiate(_cellPrefab, _selectedUnitsUI);
         cell.transform.GetChild(2).GetComponent<Image>().sprite = selectedUnit.UnitIcon;
@@ -184,9 +133,9 @@ public class UnitSelect : MonoBehaviour
     }
 
     // Система добавления юнитов в список выбранных
-    public void AddBlueUnit(Unit selectedUnit)
+    public void AddUnit(Unit selectedUnit)
     {
-        if (SelectedBlueUnits.Count >= _minSelectedUnits && SelectedBlueUnits.Count < _maxSelectedUnits)
+        if (SelectedUnits.Count >= _minSelectedUnits && SelectedUnits.Count < _maxSelectedUnits)
         {
             _noPlace = false;
         }
@@ -197,48 +146,17 @@ public class UnitSelect : MonoBehaviour
 
         if (!_noPlace)
         {
-            SelectedBlueUnits.Add(new Unit());
+            SelectedUnits.Add(new Unit());
 
-            for (int i = 0; i < SelectedBlueUnits.Count; i++)
+            for (int i = 0; i < SelectedUnits.Count; i++)
             {
-                if (SelectedBlueUnits[i] == null)
+                if (SelectedUnits[i] == null)
                 {
-                    if (SelectedBlueUnits[i].UnitID != selectedUnit.UnitID)
+                    if (SelectedUnits[i].UnitID != selectedUnit.UnitID)
                     {
-                        SelectedBlueUnits[i] = selectedUnit;
-                        SelectedBlueUnits[i].IsSelected = true;
-                        ShowBlueUnitIcon(selectedUnit);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    public void AddRedUnit(Unit selectedUnit)
-    {
-        if (SelectedRedUnits.Count >= _minSelectedUnits && SelectedRedUnits.Count <= _maxSelectedUnits)
-        {
-            _noPlace = false;
-        }
-        else
-        {
-            _noPlace = true;
-        }
-
-        if (!_noPlace)
-        {
-            SelectedRedUnits.Add(new Unit());
-
-            for (int i = 0; i < SelectedRedUnits.Count; i++)
-            {
-                if (SelectedRedUnits[i] == null)
-                {
-                    if (SelectedRedUnits[i].UnitID != selectedUnit.UnitID)
-                    {
-                        SelectedRedUnits[i] = selectedUnit;
-                        SelectedRedUnits[i].IsSelected = true;
-                        ShowRedUnitIcon(selectedUnit);
+                        SelectedUnits[i] = selectedUnit;
+                        SelectedUnits[i].IsSelected = true;
+                        ShowUnitIcon(selectedUnit);
                         return;
                     }
                 }
@@ -247,29 +165,15 @@ public class UnitSelect : MonoBehaviour
     }
 
     // Система удаления юнитов из списка выбранных
-    public void RemoveBlueUnit(Unit deselectedUnit)
+    public void RemoveUnit(Unit deselectedUnit)
     {
-        for (int i = 0; i < SelectedBlueUnits.Count; i++)
+        for (int i = 0; i < SelectedUnits.Count; i++)
         {
-            if (SelectedBlueUnits[i].UnitID == deselectedUnit.UnitID)
+            if (SelectedUnits[i].UnitID == deselectedUnit.UnitID)
             {
-                Debug.Log("I Remove Blue Unit");
-                SelectedBlueUnits[i].IsSelected = false;
-                SelectedBlueUnits.RemoveAt(i);
-                return;
-            }
-        }
-    }
-
-    public void RemoveRedUnit(Unit deselectedUnit)
-    {
-        for (int i = 0; i < SelectedRedUnits.Count; i++)
-        {
-            if (SelectedRedUnits[i].UnitID == deselectedUnit.UnitID)
-            {
-                Debug.Log("I Remove Red Unit");
-                SelectedRedUnits[i].IsSelected = false;
-                SelectedRedUnits.RemoveAt(i);
+                Debug.Log("I Remove Unit");
+                SelectedUnits[i].IsSelected = false;
+                SelectedUnits.RemoveAt(i);
                 return;
             }
         }

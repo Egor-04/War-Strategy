@@ -697,6 +697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2143142098770577219}
   - component: {fileID: 507418341}
+  - component: {fileID: 852886780}
   - component: {fileID: 507418342}
   m_Layer: 0
   m_Name: Crystal
@@ -735,6 +736,19 @@ CapsuleCollider:
   m_Height: 6.9018445
   m_Direction: 1
   m_Center: {x: -0.6541352, y: 2.9509223, z: 0.11}
+--- !u!114 &852886780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143142098770577218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07faa231d7df62745bbd97ed15eb899f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentObjectType: 2
 --- !u!114 &507418342
 MonoBehaviour:
   m_ObjectHideFlags: 0

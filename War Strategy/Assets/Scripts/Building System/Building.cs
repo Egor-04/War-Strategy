@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    [Header("Building Type")]
-    public TeamGroup CurrentBuildingTeamGroup;
-    
     [Header("ID")]
     public int BuildingID;
 
@@ -28,38 +25,14 @@ public class Building : MonoBehaviour
 
     private void Select()
     {
-        if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
+        if (!PanelManager.PanelManagerStatic.IsActivePanel)
         {
-            if (CurrentBuildingTeamGroup == TeamGroup.Blue)
-            {
-
-                if (!PanelManager.PanelManagerStatic.IsActivePanel)
-                {
-                    _panelMenu.SetActive(true);
-                    PanelManager.PanelManagerStatic.IsActivePanel = true;
-                }
-                else
-                {
-                    PanelManager.PanelManagerStatic.DisableAllPanels();
-                }
-            }
+            _panelMenu.SetActive(true);
+            PanelManager.PanelManagerStatic.IsActivePanel = true;
         }
         else
         {
-            if (CurrentBuildingTeamGroup == TeamGroup.Red)
-            {
-                PanelManager.PanelManagerStatic.DisableAllPanels();
-
-                if (!PanelManager.PanelManagerStatic.IsActivePanel)
-                {
-                    _panelMenu.SetActive(true);
-                    PanelManager.PanelManagerStatic.IsActivePanel = true;
-                }
-                else
-                {
-                    PanelManager.PanelManagerStatic.DisableAllPanels();
-                }
-            }
+            PanelManager.PanelManagerStatic.DisableAllPanels();
         }
     }
 }

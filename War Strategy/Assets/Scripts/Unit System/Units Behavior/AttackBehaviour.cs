@@ -70,24 +70,18 @@ public class AttackBehaviour : MonoBehaviour
             if (!_enemyTarget)
             {
                 Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _searchRadius);
-
+                
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    if (colliders[i].GetComponent<Unit>() || colliders[i].GetComponent<Building>())
+                    if (colliders[i].GetComponent<ObjectTarget>())
                     {
-                        if (colliders[i].GetComponent<Unit>())
+                        if (colliders[i].GetComponent<ObjectTarget>().CurrentObjectType == ObjectType.Enemy)
                         {
-                            if (colliders[i].GetComponent<Unit>().CurrentTeamGroup != _currentUnit.CurrentTeamGroup)
-                            {
-                                FollowTarget(colliders[i].transform);
-                            }
+                            FollowTarget(colliders[i].transform);
                         }
-                        else if (colliders[i].GetComponent<Building>())
+                        else
                         {
-                            if (colliders[i].GetComponent<Building>().CurrentBuildingTeamGroup != _currentUnit.CurrentTeamGroup)
-                            {
-                                FollowTarget(colliders[i].transform);
-                            }
+                            return;
                         }
                     }
                 }
@@ -97,10 +91,7 @@ public class AttackBehaviour : MonoBehaviour
 
     public void FollowTarget(Transform currentTarget)
     {
-        if (currentTarget.gameObject.GetComponent<Unit>() || currentTarget.gameObject.GetComponent<Building>())
-        {
-            _unitMovement.SetBattleTarget(currentTarget, _minAttackDistance, _damageForce);
-        }
+        _unitMovement.SetBattleTarget(currentTarget, _minAttackDistance, _damageForce);
     }
 
     public void SetNearbyBattleTarget(Transform battleTarget)
@@ -116,7 +107,7 @@ public class AttackBehaviour : MonoBehaviour
             {
                 float currentNearbyTarget = Vector3.SqrMagnitude(_enemyTarget.position - transform.position);
 
-                if (_enemyTarget.gameObject.GetComponent<ObjectHealth>())
+                if (_enemyTarget.gameObject.GetComponent<EnemyHealth>())
                 {
                     if (currentNearbyTarget <= _minAttackDistance)
                     {
@@ -134,7 +125,7 @@ public class AttackBehaviour : MonoBehaviour
                             source.clip = _shotSound;
                             source.Play();
 
-                            ObjectHealth targetHealth = _enemyTarget.gameObject.GetComponent<ObjectHealth>();
+                            EnemyHealth targetHealth = _enemyTarget.gameObject.GetComponent<EnemyHealth>();
                             targetHealth.DamageHit(_damageForce);
                             _currentTimeInterval = _shootTimeInterval;
                         }
@@ -152,15 +143,14 @@ public class AttackBehaviour : MonoBehaviour
         }
     }
 
-    public void AttackThisTarget(Transform currentBattleTarget) // Срабатывает один раз, надо исправить
+    public void AttackThisTarget(ObjectTarget objectTarget)
     {
-        Debug.Log("Select Target For Attack " + currentBattleTarget.name);
-        if (currentBattleTarget.gameObject.GetComponent<Unit>() || currentBattleTarget.gameObject.GetComponent<Building>())
+        Debug.Log("Select Target For Attack " + objectTarget.name);
+        if (objectTarget.CurrentObjectType == ObjectType.Enemy)
         {
-            _enemyTarget = currentBattleTarget;
+            _enemyTarget = objectTarget.transform;
+            _unitMovement.SetBattleTarget(objectTarget.transform, _minAttackDistance, _damageForce);
         }
-
-        _unitMovement.SetBattleTarget(currentBattleTarget, _minAttackDistance, _damageForce);
     }
 
     private void OnDrawGizmos()

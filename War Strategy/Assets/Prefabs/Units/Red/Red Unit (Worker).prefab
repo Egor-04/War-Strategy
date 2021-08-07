@@ -365,11 +365,7 @@ GameObject:
   - component: {fileID: 2206326008369135080}
   - component: {fileID: -3192539597072743445}
   - component: {fileID: 2011389191610152084}
-  - component: {fileID: 6945956316627920368}
-  - component: {fileID: 6945956316627920383}
-  - component: {fileID: 915818542}
-  - component: {fileID: 915818543}
-  - component: {fileID: 5954758708521892400}
+  - component: {fileID: -6432462548131613213}
   m_Layer: 0
   m_Name: Red Unit (Worker)
   m_TagString: Untagged
@@ -498,7 +494,7 @@ NavMeshAgent:
   m_BaseOffset: 0.9
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6945956316627920368
+--- !u!114 &-6432462548131613213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,107 +503,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2206326008369135081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58dfed006d988bb4aa6f80c804d09fc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 07faa231d7df62745bbd97ed15eb899f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentTeamGroup: 1
-  UnitID: 4
-  UnitIcon: {fileID: 21300000, guid: 88bf8dc7bec586d499afd39f07fb1648, type: 3}
-  IsSelected: 0
-  UnitMovement: {fileID: 0}
-  UnitBehaviour: {fileID: 0}
-  CurrentUnitHealth: 0
---- !u!114 &6945956316627920383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206326008369135081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 30
-  _distance: 0
-  _navMeshAgent: {fileID: 0}
-  MovementTarget: {fileID: 0}
-  _minMovementTargetDistance: 30
-  _minAttackDistance: 0
-  _damageForce: 0
-  _minWorkDistance: 0
-  _toolDamageForce: 0
-  _minComandCenterDistance: 0
-  _minFixDistance: 0
-  _collectedCrystalsCount: 0
-  _collectedGasCount: 0
---- !u!114 &915818542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206326008369135081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentHealthType: 0
-  CurrentTeamGroup: 0
-  MaxObjectHealth: 100
-  CurrentObjectHealth: 100
-  _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
-  _killSound:
-  - {fileID: 8300000, guid: da40a377245df1044b52e28f45931f14, type: 3}
---- !u!114 &915818543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206326008369135081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f26e8e6f0a77de2408030fdf837162bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentBehaviourType: 1
---- !u!114 &5954758708521892400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206326008369135081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08796a775204f5142a33083a6273d5a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollectedCrystalsCount: 0
-  CollectedGasCount: 0
-  _crystals: {fileID: 3747068309591225411}
-  _gasBarrel: {fileID: 3747068308750997354}
-  _resourceTarget: {fileID: 0}
-  "_\u0441omandCenterDeliveryPoint": {fileID: 0}
-  _minComandCeneterDistance: 750
-  _fixTarget: {fileID: 0}
-  _fixTime: 2
-  _fixCount: 0
-  _minFixDistance: 700
-  _searchArea: {fileID: 2206326008369135077}
-  _radius: 8
-  _toolDamageForce: 1
-  _minWorkDistance: 150
-  _workTime: 8
-  _red: 0
-  _green: 1
-  _blue: 0
-  _currentWorkTime: 0
-  _currentFixTime: 0
-  _currentFixDistance: 0
+  CurrentObjectType: 0
 --- !u!1 &2206326008690363934
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,7 +840,6 @@ GameObject:
   - component: {fileID: 2206326009844099563}
   - component: {fileID: 2206326009844099560}
   - component: {fileID: 2206326009844099561}
-  - component: {fileID: 2206326009844099562}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -1012,19 +910,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2206326009844099562
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206326009844099564}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2206326009856642566
 GameObject:
   m_ObjectHideFlags: 0

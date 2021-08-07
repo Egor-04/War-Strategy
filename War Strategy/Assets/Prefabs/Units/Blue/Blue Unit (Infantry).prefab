@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 1170571488}
   - component: {fileID: 1170571491}
   - component: {fileID: 1170571490}
-  - component: {fileID: 1170571489}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -211,19 +210,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1170571489
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170571487}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1274264940
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +721,7 @@ GameObject:
   - component: {fileID: 1559805446}
   - component: {fileID: 2144964988}
   - component: {fileID: 1559805447}
+  - component: {fileID: 6496347103897077124}
   m_Layer: 0
   m_Name: Blue Unit (Infantry)
   m_TagString: Untagged
@@ -873,7 +860,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHealthType: 0
-  CurrentTeamGroup: 0
   MaxObjectHealth: 100
   CurrentObjectHealth: 100
   _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
@@ -892,7 +878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dfed006d988bb4aa6f80c804d09fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentTeamGroup: 0
   UnitID: 1
   UnitIcon: {fileID: 21300000, guid: 7ed44005286f6f34f90ba51ffb8a3fd3, type: 3}
   IsSelected: 0
@@ -967,3 +952,16 @@ MonoBehaviour:
   _red: 1
   _green: 0
   _blue: 0
+--- !u!114 &6496347103897077124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518851299997693809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07faa231d7df62745bbd97ed15eb899f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentObjectType: 0

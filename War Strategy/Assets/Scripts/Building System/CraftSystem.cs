@@ -5,22 +5,29 @@ using System;
 
 public class CraftSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject _currentCraftedPrefab;
+    [SerializeField] private GameObject[] _unitQueue;
 
     [Header("For Unit Craft")]
+    [SerializeField] private Transform _exitPoint;
     [SerializeField] private float _craftTime = 10f;
     [SerializeField] private Craft _craftItem;
 
     private ResourcesBalance _resourcesBalance;
+    [SerializeField] private float _currentCraftTime;
+    private bool _itemIsCrafting;
 
     [Serializable]
     public class Craft 
     {
         public GameObject ItemPrefab;
-        public Transform ExitPoint;
         public int CrystalsCount;
         public int GasCount;
         public int SpaceCount;
+    }
+
+    private void Start()
+    {
+        _resourcesBalance = FindObjectOfType<ResourcesBalance>();
     }
 
     public void Update()
@@ -30,13 +37,12 @@ public class CraftSystem : MonoBehaviour
 
     public void CraftUnit()
     {
-        if (_resourcesBalance._storageSpaceCurrentCount < _resourcesBalance._storageSpaceMaxCount)
+        if (_resourcesBalance.CrystalsCount >= _craftItem.CrystalsCount && _resourcesBalance.GasCount >= _craftItem.GasCount)
         {
-            if (_resourcesBalance._crystalsCount >= _craftItem.CrystalsCount)
-            {
-                _resourcesBalance._crystalsCount -= _craftItem.CrystalsCount;
-                _resourcesBalance._gasCount -= _craftItem.GasCount;
-            }
+            _resourcesBalance.CrystalsCount -= _craftItem.CrystalsCount;
+            _resourcesBalance.GasCount -= _craftItem.GasCount;
+            _currentCraftTime += _craftTime;
+            _itemIsCrafting = true;
         }
     }
 
@@ -47,6 +53,16 @@ public class CraftSystem : MonoBehaviour
 
     private void CurrentCraftProcess()
     {
+        _currentCraftTime -= Time.deltaTime;
 
+        if (_itemIsCrafting)
+        {
+            if (_currentCraftTime <= 0f)
+            {
+                _currentCraftTime = 0f;
+                Instantiate(_craftItem.ItemPrefab, _exitPoint.position, _craftItem.ItemPrefab.transform.rotation);
+                _itemIsCrafting = false;
+            }
+        }
     }
 }

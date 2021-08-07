@@ -56,25 +56,8 @@ public class WorkingBehaviour : MonoBehaviour
         _currentUnit = GetComponent<Unit>();
         _unitMovement = GetComponent<UnitMovement>();
 
-        // Õ‡‰Ó ‰ÂÎ‡Ú¸ ÚÓ„‰‡ ÔÓ‚ÂÍÛ Í‡ÍÓÈ ÍÓÏ‡Ì‰˚ ‡·Ó˜ËÈ Ë ÚÓ„‰‡ ÔËÒ‚‡Ë‚‡Ú¸ ÂÏÛ Â„Ó ·‡ÁÛ
-        if (_currentUnit.CurrentTeamGroup == TeamGroup.Blue)
-        {
-            ComandCenter findedComandCenter = FindObjectOfType<ComandCenter>();
-            
-            if (findedComandCenter.CurrentTeamGroup == TeamGroup.Blue)
-            {
-                _ÒomandCenterDeliveryPoint = findedComandCenter.transform;
-            }
-        }
-        else if (_currentUnit.CurrentTeamGroup == TeamGroup.Red)
-        {
-            ComandCenter findedComandCenter = FindObjectOfType<ComandCenter>();
-
-            if (findedComandCenter.CurrentTeamGroup == TeamGroup.Red)
-            {
-                _ÒomandCenterDeliveryPoint = findedComandCenter.transform;
-            }
-        }
+        ComandCenter findedComandCenter = FindObjectOfType<ComandCenter>();
+        _ÒomandCenterDeliveryPoint = findedComandCenter.transform;
     }
 
     private void Update()
@@ -84,20 +67,20 @@ public class WorkingBehaviour : MonoBehaviour
         CheckHaveResources();
     }
 
-    public void DefineTypeTarget(Transform target)
+    public void DefineTypeTarget(ObjectTarget objectTarget)
     {
-        if (target.gameObject.GetComponent<ResourceSource>())
+        if (objectTarget.gameObject.GetComponent<ResourceSource>())
         {
-            CollectThisResourceTarget(target);
+            CollectThisResourceTarget(objectTarget.transform);
         }
-        else if (target.gameObject.GetComponent<ComandCenter>())
+        else if (objectTarget.gameObject.GetComponent<ComandCenter>())
         {
-            NeedFix(target);
+            NeedFix(objectTarget.transform);
             DeliveryResourcesToComandCenter();
         }
-        else if (target.GetComponent<ObjectHealth>())
+        else if (objectTarget.GetComponent<ObjectHealth>())
         {
-            NeedFix(target);
+            NeedFix(objectTarget.transform);
         }
     }
 
@@ -130,6 +113,7 @@ public class WorkingBehaviour : MonoBehaviour
         {
             if (_fixTarget)
             {
+                Debug.Log("I FIX");
                 float currentFixDistance = Vector3.SqrMagnitude(_fixTarget.position - transform.position);
                 _currentFixDistance = currentFixDistance;
 
@@ -172,13 +156,10 @@ public class WorkingBehaviour : MonoBehaviour
 
     private void CollectThisResourceTarget(Transform resourceTarget)
     {
-        if (resourceTarget.gameObject.GetComponent<ResourceSource>())
-        {
-            Debug.Log("I Selected Resource Target ===> " + resourceTarget);
-            _resourceTarget = resourceTarget;
-            _cachedResourceTarget = resourceTarget;
-            _unitMovement.SetResourceTarget(resourceTarget, _minWorkDistance, _toolDamageForce);
-        }
+        Debug.Log("I Selected Resource Target ===> " + resourceTarget);
+        _resourceTarget = resourceTarget;
+        _cachedResourceTarget = resourceTarget;
+        _unitMovement.SetResourceTarget(resourceTarget, _minWorkDistance, _toolDamageForce);
     }
 
     public void CheckHaveResources()
@@ -206,27 +187,30 @@ public class WorkingBehaviour : MonoBehaviour
     {
         if (_resourceTarget)
         {
-            if (_resourceTarget.gameObject.GetComponent<ResourceSource>())
+            if (_resourceTarget.gameObject.GetComponent<ObjectTarget>())
             {
-                Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _radius);
-
-                for (int i = 0; i < colliders.Length; i++)
+                if (_resourceTarget.gameObject.GetComponent<ObjectTarget>().CurrentObjectType == ObjectType.Resources)
                 {
-                    ResourceSource findedResource = colliders[i].transform.gameObject.GetComponent<ResourceSource>();
+                    Collider[] colliders = Physics.OverlapSphere(_searchArea.position, _radius);
 
-                    if (findedResource)
+                    for (int i = 0; i < colliders.Length; i++)
                     {
-                        Debug.Log(_resourceTarget);
-                        Debug.Log("Im Find Resources");
-                        _currentWorkTime -= Time.deltaTime;
-                        
-                        findedResource.GetResource(_toolDamageForce, GetComponent<WorkingBehaviour>());
-                            
-                        if (_currentWorkTime <= 0f)
+                        ResourceSource findedResource = colliders[i].transform.gameObject.GetComponent<ResourceSource>();
+
+                        if (findedResource)
                         {
-                            _currentWorkTime = 0f;
-                            _currentWorkTime = _workTime;
-                            FinishedWork();
+                            Debug.Log(_resourceTarget);
+                            Debug.Log("Im Find Resources");
+                            _currentWorkTime -= Time.deltaTime;
+                            
+                            findedResource.GetResource(_toolDamageForce, GetComponent<WorkingBehaviour>());
+                                
+                            if (_currentWorkTime <= 0f)
+                            {
+                                _currentWorkTime = 0f;
+                                _currentWorkTime = _workTime;
+                                FinishedWork();
+                            }
                         }
                     }
                 }

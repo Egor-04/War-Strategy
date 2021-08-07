@@ -6,9 +6,6 @@ public class ObjectHealth : MonoBehaviour
     [Header("Health Type")]
     public HealthType CurrentHealthType;
 
-    [Header("Team Group Type")]
-    public TeamGroup CurrentTeamGroup;
-
     [Header("Health")]
     public float MaxObjectHealth;
     public float CurrentObjectHealth;
@@ -36,7 +33,7 @@ public class ObjectHealth : MonoBehaviour
     {
         if (_currentUnit)
         {
-            _currentUnit.SetCurrentHealthvalue(CurrentObjectHealth);
+            _currentUnit.SetCurrentHealthValue(CurrentObjectHealth);
         }
         
         if (CurrentObjectHealth <= 0f)

@@ -602,7 +602,6 @@ GameObject:
   - component: {fileID: 1860520349}
   - component: {fileID: 1860520352}
   - component: {fileID: 1860520351}
-  - component: {fileID: 1860520350}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -673,19 +672,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1860520350
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860520348}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4249180012925851551
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,11 +716,7 @@ GameObject:
   - component: {fileID: 4618062664336187532}
   - component: {fileID: 6567518850895069070}
   - component: {fileID: 4618062664336187528}
-  - component: {fileID: 1322224962512176891}
-  - component: {fileID: 1322224962512176892}
-  - component: {fileID: 714081207}
-  - component: {fileID: 714081208}
-  - component: {fileID: 714081209}
+  - component: {fileID: 2804273907652297400}
   m_Layer: 0
   m_Name: Red Unit (Infantry)
   m_TagString: Untagged
@@ -860,7 +842,7 @@ NavMeshAgent:
   m_BaseOffset: 0.96
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1322224962512176891
+--- !u!114 &2804273907652297400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -869,101 +851,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4618062664336187533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58dfed006d988bb4aa6f80c804d09fc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 07faa231d7df62745bbd97ed15eb899f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentTeamGroup: 1
-  UnitID: 3
-  UnitIcon: {fileID: 21300000, guid: 7ed44005286f6f34f90ba51ffb8a3fd3, type: 3}
-  IsSelected: 0
-  UnitMovement: {fileID: 0}
-  UnitBehaviour: {fileID: 0}
-  CurrentUnitHealth: 0
---- !u!114 &1322224962512176892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618062664336187533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15105dfc40752e54aabc0a5c1d942acb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 30
-  _distance: 0
-  _navMeshAgent: {fileID: 0}
-  MovementTarget: {fileID: 0}
-  _minMovementTargetDistance: 100
-  _minAttackDistance: 0
-  _damageForce: 0
-  _minWorkDistance: 0
-  _toolDamageForce: 0
-  _minComandCenterDistance: 0
-  _minFixDistance: 0
-  _collectedCrystalsCount: 0
-  _collectedGasCount: 0
---- !u!114 &714081207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618062664336187533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2ce7b669df453449bfa641011ba94e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentHealthType: 0
-  CurrentTeamGroup: 0
-  MaxObjectHealth: 100
-  CurrentObjectHealth: 100
-  _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
-  _killSound:
-  - {fileID: 8300000, guid: 3075a9b205daae045b11648354dcb574, type: 3}
-  - {fileID: 8300000, guid: c922847483ccc5640b831fc039201753, type: 3}
---- !u!114 &714081208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618062664336187533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f26e8e6f0a77de2408030fdf837162bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentBehaviourType: 0
---- !u!114 &714081209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618062664336187533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db330158478d5e5488ca30f1a963c169, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyTarget: {fileID: 0}
-  _currentDistance: 0
-  _damageForce: 5
-  _hitEffect: {fileID: 3583929335553733533, guid: bd6bfe071af16ef43a257942918bd4a3, type: 3}
-  _muzzleFlash: {fileID: 1141309047597584224, guid: 460d40fa122a3ee4c8fce7380328a1d2, type: 3}
-  _muzzleFlashSapwn: {fileID: 4249180012925851550}
-  _shootTimeInterval: 1
-  _source: {fileID: 5382195603143964827, guid: e6a455251681dcd42b748a00c3193726, type: 3}
-  _shotSound: {fileID: 8300000, guid: 3a83dcb18c729c84da08c16ad03b3103, type: 3}
-  _X: 3
-  _Y: 3
-  _Z: 3
-  _minAttackDistance: 1000
-  _searchArea: {fileID: 4618062664336187529}
-  _searchRadius: 70
-  _red: 1
-  _green: 0
-  _blue: 0
+  CurrentObjectType: 0

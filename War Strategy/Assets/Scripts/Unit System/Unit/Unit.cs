@@ -1,10 +1,8 @@
 using UnityEngine;
 
-public enum TeamGroup {Blue, Red}
 public class Unit : MonoBehaviour, IUnitSelected
 {
     [Header("Info")]
-    public TeamGroup CurrentTeamGroup;
     public int UnitID;
     public Sprite UnitIcon;
     public bool IsSelected;
@@ -20,18 +18,16 @@ public class Unit : MonoBehaviour, IUnitSelected
 
     [HideInInspector]
     public float CurrentUnitHealth; 
-
-    private UnitSelect _unitSelect;
     private ObjectHealth _objectHealth;
-
+    private UnitBehaviour _unitBehaviour; 
 
     private void Start()
     {
         UnitID = Random.Range(_minID, _maxID);
         UnitMovement = GetComponent<UnitMovement>();
         UnitBehaviour = GetComponent<UnitBehaviour>();
-        _unitSelect = FindObjectOfType<UnitSelect>();
         _objectHealth = GetComponent<ObjectHealth>();
+        _unitBehaviour = GetComponent<UnitBehaviour>();
     }
 
     private void OnMouseDown()
@@ -43,24 +39,11 @@ public class Unit : MonoBehaviour, IUnitSelected
     {
         if (!IsSelected)
         {
-            if (_unitSelect.TeamGroupUnderControll == TeamGroupControll.Blue)
-            {
-                if (CurrentTeamGroup == TeamGroup.Blue)
-                {
-                    _unitSelect.AddBlueUnit(GetComponent<Unit>());
-                }
-            }
-            else
-            {
-                if (CurrentTeamGroup == TeamGroup.Red)
-                {
-                    _unitSelect.AddRedUnit(GetComponent<Unit>());
-                }
-            }
+            UnitSelect.StaticUnitSelect.AddUnit(GetComponent<Unit>());
         }
     }
 
-    public void SetCurrentHealthvalue(float currentUnitHealth)
+    public void SetCurrentHealthValue(float currentUnitHealth)
     {
         CurrentUnitHealth = currentUnitHealth;
     }
@@ -69,14 +52,12 @@ public class Unit : MonoBehaviour, IUnitSelected
     {
         if (CurrentUnitHealth <= _objectHealth.MaxObjectHealth)
         {
-            if (CurrentTeamGroup == TeamGroup.Blue)
-            {
-                _unitSelect.RemoveBlueUnit(GetComponent<Unit>());
-            }
-            else
-            {
-                _unitSelect.RemoveRedUnit(GetComponent<Unit>());
-            }
+            UnitSelect.StaticUnitSelect.RemoveUnit(GetComponent<Unit>());
         }
+    }
+
+    public void DefineBehaviourType(ObjectTarget objectTarget)
+    {
+        _unitBehaviour.CurrentBehaviour(objectTarget);
     }
 }
